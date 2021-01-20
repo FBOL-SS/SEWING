@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="account_reports_backend_bi" inherit_id="web.assets_backend" active="True">
+            <xpath expr="." position="inside">
+                <script type="text/javascript"
+                        src="/bi_general_ledger_filter/static/src/js/custom_account_reports.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

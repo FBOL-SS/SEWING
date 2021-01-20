@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+
+    <template id='search_template_custom_account_types'>
+        <a type="button" class="dropdown-toggle bi_account_filter" data-toggle="dropdown">
+            <span class="fa fa-folder-open"/>
+            Cuentas
+            <span class="caret"/>
+        </a>
+        <ul class="dropdown-menu o_filters_menu" role="menu">
+            <li style='margin-left: 10px; margin-right: 10px;'>
+                <b>Cuentas</b>
+                <br/>
+                <select class="o_account_reports_add_account_filter_auto_complete" multiple="multiple"
+                        data-filter="custom_account_ids"
+                        style="min-width: 100px;">
+                    <t t-foreach="custom_account_ids" t-as="a">
+                        <option t-att-value="a[0]">
+                            <t t-esc="a[1]"/>
+                        </option>
+                    </t>
+                </select>
+            </li>
+            <li class="divider"></li>
+            <li style='margin-left: 10px; margin-right: 10px;'>
+                <b>Tipo de Cuenta</b>
+                <br/>
+                <select class="o_account_reports_add_account_filter_auto_complete" multiple="multiple"
+                        data-filter="custom_account_type_ids"
+                        style="min-width: 100px;">
+                    <t t-foreach="custom_account_type_ids" t-as="t">
+                        <option t-att-value="t[0]">
+                            <t t-esc="t[1]"/>
+                        </option>
+                    </t>
+                </select>
+            </li>
+        </ul>
+
+    </template>
+
+    <template id="account_reports_search_template_inherit" inherit_id="account_reports.search_template">
+        <xpath expr="//div[@class='btn-group o_dropdown o_account_reports_filter_multi_company']" position="after">
+            <div class="btn-group o_dropdown o_account_reports_filter_analytic">
+                <t t-call="bi_general_ledger_filter.search_template_custom_account_types"/>
+            </div>
+        </xpath>
+
+    </template>
+</odoo>

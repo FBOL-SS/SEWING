@@ -1,0 +1,22 @@
+# -*- coding: utf-8 -*-
+{
+    'name': 'Costo Promedio',
+    'version': '12.0.1.0.0',
+    'category': 'Warehouse',
+    'summary': """Calcula el Costo Promedio del ingreso de productos.""",
+    'description': """Calcula el Costo Promedio del ingreso de productos.""",
+    'author': 'SewingSolution',
+    'company': 'SewingSolution',
+    'website': "",
+    'maintainer': 'SewingSolution',
+    'depends': ['base', 'stock_landed_costs'],
+    'data': ['views/average_landed_cost_views.xml',
+             'security/ir.model.access.csv'],
+    'images': ['static/description/images/banner.png'],
+    'license': 'OPL-1',
+    'price': 300,
+    'currency': 'USD',
+    'installable': True,
+    'auto_install': False,
+    'application': False,
+}
