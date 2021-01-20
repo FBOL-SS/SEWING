@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2019 
+ -->
+<odoo>
+        <report 
+            id="action_report_print_cheque"
+            string="Imprimir Cheque"
+            model="account.payment" 
+            report_type="qweb-pdf"
+            name="dev_print_cheque.report_print_cheque"
+            file="dev_print_cheque.report_print_cheque"
+            header="False"
+        />
+        
+        
+        <record id="paperformat_cheque" model="report.paperformat">
+            <field name="name">Banco Cuscatlán</field>
+            <field name="default" eval="True" />
+            <field name="format">custom</field>
+            <field name="page_height">216</field>
+            <field name="page_width">170</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">0</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">0</field>
+            <field name="dpi">90</field>
+        </record>
+        
+        <record id="dev_print_cheque.action_report_print_cheque" model="ir.actions.report">
+			<field name="paperformat_id" ref="dev_print_cheque.paperformat_cheque" />
+		</record>   
+		
+		
+</odoo>

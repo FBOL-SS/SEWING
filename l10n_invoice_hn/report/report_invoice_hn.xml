@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <template id="report_invoice_hn">
+            <t t-call="web.html_container">
+        <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
+        <div class="header">
+
+        </div>
+   <!--############################################################################################################-->
+        <div t-att-data-oe-model="o._name" t-att-data-oe-id="o.id" t-att-data-oe-lang="o and o.env.context.get('lang')" class="page article">
+
+            <style>
+                span, td, th
+                {
+                 font-size: 23px;
+                }
+                td,  th
+                {
+                    padding: 6px;
+                }
+            .c-nombre
+                {
+                    font-size: 27px;
+                }
+                #detalles-tabla
+                {
+                    margin-top:20px;
+                }
+                #detalles-tabla th
+                {
+
+                    font-weight: 500;
+                }
+                .correlativo span
+                {
+                    font-weight: 300;
+                    font-size: 17px;
+                }
+                .correlativo
+                {
+                    margin-top: 10px;
+                    padding-top: 12px;
+                    padding-bottom: 15px;
+                    text-align:center;
+
+                }
+                .headder
+                {
+                    border-bottom: 1px dashed black;
+                    padding-bottom: 25px;
+                }
+                .header-tabla
+                {
+                    margin-bottom: 10px;
+                }
+                .tbl-body thead tr th
+                {
+                    font-size: 20px !important;
+                    padding: 10px !important;
+                }
+                .productos tr td span
+                {
+                 text-align:center;
+                }
+
+            </style>
+            <div class="container">
+                <div class="headder">
+            <table id="header-tabla" style="width:100%; border:bottom: 20px;">
+                <tr>
+                    <th style="width: 50%;"><strong><span class="c-nombre" t-field="o.company_id.name"></span></strong></th>
+                    <th style="width: 30%;"></th>
+                    <th style="width: 20%; vertical-align: middle;" rowspan="4"><img src='/web/binary/company_logo' style="width:100%"/></th>
+                </tr>
+                <tr>
+                    <td>Dirección: <span t-field="o.company_id.street" ></span></td>
+                </tr>
+                <tr>
+                    <td>Teléfono: <span t-field="o.company_id.phone" style="margin-right:5px;" ></span> RTN: <span t-field="o.company_id.nrc"></span></td>
+                </tr>
+                <tr>
+                    <td>Email: <span t-field="o.company_id.email" ></span></td>
+                </tr>
+                <tr>
+                     <td>CAI:<span t-field="o.company_id.nit" ></span></td>
+                </tr>
+            </table>
+            </div>
+                <table id="detalles-tabla" style="width: 100%;">
+                    <thead style="margin-bottom: 20px;">
+                        <tr>
+                            <th class="b-bottom b-right"  style="width: 12%;" colspan=""></th>
+                            <th class="b-bottom b-right"  style="width: 48%;" colspan=""></th>
+                            <th class="b-bottom b-right specText"  style="width:22%; text-align:center;"> FACTURA </th>
+                            <th class="b-bottom specText" style="width: 15%;" colspan=""> <span t-field="o.number" ></span>  </th>
+                            <th style="width:3%;"></th>
+                        </tr>
+                        <tr>
+                            <th class="b-right"></th>
+                            <th class="b-right"></th>
+                            <th colspan="2" style="font-weight: bold; padding-top: 5px; text-align:center; ">ORIGINAL</th>
+                            <th class="b-right"></th>
+
+                        </tr>
+                        <tr>
+                            <th class="txt-effect b-right">CLIENTE:</th>
+                            <th class="txt-effect b-right" style="text-transform:uppercase;"><span t-field="o.partner_id" ></span> </th>
+                            <th class="txt-effect" colspan="" style="text-align:center;">PO #: </th>
+                            <th class="specText" colspan=""><span t-field="o.orden_no" ></span></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <th class="txt-effect b-right">DIRECCION</th>
+                            <th class="txt-effect b-right"><span t-field="o.partner_id.street" style="text-transform:uppercase;" ></span> </th>
+                            <th class="txt-effect" colspan="" style="text-align:center;">FECHA: </th>
+                            <th class="txt-effect" colspan=""><span t-field="o.date_invoice" ></span></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <th class="txt-effect b-right">RTN: </th>
+                            <th class="txt-effect b-right"><span t-field="o.partner_id.nrc" ></span> </th>
+                            <th class="txt-effect" colspan="" style="text-align:center;">VENCE: </th>
+                            <th class="txt-effect" colspan=""><span t-field="o.date_due" ></span></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <th class="correlativo" colspan="6" style="">
+                                <span>N°. Correlativo Orden de Compra Exonerada</span>
+                                <span style="">__________________</span>
+                                <span>N°. Correlativo de Constancia de Registro Exonerado</span>
+                                <span style="">__________________</span>
+                                <span>N°. Identificativo de Registro de la SAG</span>
+                                <span style="">__________________</span>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+                 <table class="tbl-body" style="text-align:center;">
+                    <thead>
+                        <tr class="tbl-txtFrmt" style="background: black; color: white;">
+                            <th style="width: 10%">CODIGO#</th>
+                            <th style="width: 40%;">DESCRIPCION</th>
+                            <th style="width: 10%">CANTD</th>
+                            <th style="width: 10%">PREC/UNIT $</th>
+                            <th style="width: 15%; font-size: 17px!important; color: black">DESCUENTOS Y REBAJAS OTORGADOS</th>
+                            <th style="width: 15%">TOTAL $</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="productos" style="text-align: center;">
+                        <tr t-foreach="o.invoice_line_ids" t-as="l">
+                            <td>
+                            <span style="padding-left 5px" t-field="l.product_id.default_code"/>
+                            </td>
+                            <td class="text-justify">
+                            <span style="padding-left 10px" t-field="l.name"/>
+                            </td>
+                            <td>
+                            <span t-field="l.quantity"/>
+                            <span t-field="l.uom_id"  groups="product.group_uom"/>
+                            </td>
+                            <td>
+                                <span t-esc="l.price_unit * 1.13"
+                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            </td>
+                            <td> </td>
+
+                            <td>
+                                <span t-esc="l.price_subtotal * 1.13"
+                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="footer">
+                    <style>
+                        #el-footer tbody tr td span
+                        {
+                            padding: 10px 5px !important;
+                        }
+                        #el-footer tbody tr td
+                        {
+                            padding-left: 10px!important;
+                        }
+                        td,span
+                        {
+                            Font-size:23px!important;
+                        }
+
+                    </style>
+                     <table id="el-footer" style=" width: 100%;">
+                    <tbody style="width: 100%;" >
+                         <tr colspan="" style="background: black; color: white; font-weight: bold; line-height: 25px; text-align:left; padding: 10px;">
+                            <td style="width: 15%;"></td>
+                            <td style="width: 45%;"></td>
+                            <td style="width: 25%; text-align: left; font-size: 25px; padding: 5px 0"> TOTAL $ </td>
+                            <td style="width: 15%; text-align: left; font-size: 25px; padding: 5px 0;"> <span t-field="o.amount_total"></span></td>
+                        </tr>
+                        <tr style="height: 20px;">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr style="padding-top: 25px;">
+                            <td class="b-right content-footer" style="width: 20%;"> Valor en Letras LPS </td>
+                            <td class="b-right content-footer" style="width: 40%;"> <span t-field="o.amount_letters_hn"></span> </td>
+                            <td class="b-right content-footer" colspan="" style="width: 25%;">Importe Exonerado</td>
+                            <td class="b-right content-footer" style="width: 15%;"> <span t-field="o.amount_total"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="b-right content-footer"> Fecha Limite de Emision: </td>
+                            <td class="b-right content-footer"><span t-field="o.emision_date_hn"></span> </td>
+                            <td class="b-right content-footer">Importe Exento</td>
+                            <td class="b-right content-footer"></td>
+                        </tr>
+                        <tr>
+                            <td class="b-right content-footer"> Numeracion Autorizada: </td>
+                            <td class="b-right content-footer"> <span t-field="o.numeracion"></span> </td>
+                            <td class="b-right content-footer">Descuentos y rebajas otorgados</td>
+                            <td class="b-right content-footer"></td>
+                        </tr>
+                        <tr>
+                            <td class="b-right content-footer"> Total Unid: </td>
+                            <td class="b-right content-footer"> <span t-field="o.amount_units"></span> </td>
+                            <td class="b-right content-footer" >Importe Gravado 15%</td>
+                            <td class="b-right content-footer" ></td>
+                        </tr>
+                        <tr>
+                            <td class="b-right content-footer"> Total KG: </td>
+                            <td class="b-right content-footer"> <span t-field="o.amount_kg"></span></td>
+                            <td class="b-right content-footer">Importe Gravado 18%</td>
+                            <td class="b-right content-footer" ></td>
+                        </tr>
+                        <tr>
+                            <td>No. de Bultos</td>
+                            <td><span t-field="o.no_bultos"></span></td>
+                            <td class="b-right content-footer" >ISV 15%</td>
+                            <td class="b-right content-footer" ></td>
+                        </tr>
+                        <tr>
+                            <td class="b-right content-footer"> Original: </td>
+                            <td class="b-right content-footer"> Cliente </td>
+                            <td>ISV 18%</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="b-right content-footer"> Copia: </td>
+                            <td class="b-right content-footer"> Emisor </td>
+                            <td class="b-right content-footer">TOTAL A PAGAR</td>
+                            <td class="b-right content-footer" > <span t-field="o.amount_total"></span></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                    <div class="firma" style="margin-top: 35px;">
+                        <table style="width:100%;">
+                            <tr>
+                                <th style="width:50%;"></th>
+                                <th style="width:50%; text-align:center!important; padding-top:20px;" ><span style="text-align:center;">__________________________________________________</span><br/><span style="text-align:center;">Nombre de recibido</span></th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+        </div>
+
+
+              <p style="page-break-after:always;"></p>
+
+
+                <div class="container">
+                <div class="headder">
+            <table id="header-tabla" style="width:100%; border:bottom: 20px;">
+                <tr>
+                    <th style="width: 50%;"><strong><span class="c-nombre" t-field="o.company_id.name"></span></strong></th>
+                    <th style="width: 30%;"></th>
+                    <th style="width: 20%; vertical-align: middle;" rowspan="4"><img src='/web/binary/company_logo' style="width:100%"/></th>
+                </tr>
+                <tr>
+                    <td>Dirección: <span t-field="o.company_id.street" ></span></td>
+                </tr>
+                <tr>
+                    <td>Teléfono: <span t-field="o.company_id.phone" style="margin-right:5px;" ></span> RTN: <span t-field="o.company_id.nrc"></span></td>
+                </tr>
+                <tr>
+                    <td>Email: <span t-field="o.company_id.email" ></span></td>
+                </tr>
+                <tr>
+                     <td>CAI:<span t-field="o.company_id.nit" ></span></td>
+                </tr>
+            </table>
+            </div>
+                <table id="detalles-tabla" style="width: 100%;">
+                    <thead style="margin-bottom: 20px;">
+                        <tr>
+                            <th class="b-bottom b-right"  style="width: 12%;" colspan=""></th>
+                            <th class="b-bottom b-right"  style="width: 48%;" colspan=""></th>
+                            <th class="b-bottom b-right specText"  style="width:22%; text-align:center;"> FACTURA </th>
+                            <th class="b-bottom specText" style="width: 15%;" colspan=""> <span t-field="o.number" ></span>  </th>
+                            <th style="width:3%;"></th>
+                        </tr>
+                        <tr>
+                            <th class="b-right"></th>
+                            <th class="b-right"></th>
+                            <th colspan="2" style="font-weight: bold; padding-top: 5px; text-align:center; ">COPIA</th>
+                            <th class="b-right"></th>
+
+                        </tr>
+                        <tr>
+                            <th class="txt-effect b-right">CLIENTE:</th>
+                            <th class="txt-effect b-right" style="text-transform:uppercase;"><span t-field="o.partner_id" ></span> </th>
+                            <th class="txt-effect" colspan="" style="text-align:center;">PO #: </th>
+                            <th class="specText" colspan=""><span t-field="o.orden_no" ></span></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <th class="txt-effect b-right">DIRECCION</th>
+                            <th class="txt-effect b-right"><span t-field="o.partner_id.street" style="text-transform:uppercase;" ></span> </th>
+                            <th class="txt-effect" colspan="" style="text-align:center;">FECHA: </th>
+                            <th class="txt-effect" colspan=""><span t-field="o.date_invoice" ></span></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <th class="txt-effect b-right">RTN: </th>
+                            <th class="txt-effect b-right"><span t-field="o.partner_id.nrc" ></span> </th>
+                            <th class="txt-effect" colspan="" style="text-align:center;">VENCE: </th>
+                            <th class="txt-effect" colspan=""><span t-field="o.date_due" ></span></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <th class="correlativo" colspan="6" style="">
+                                <span>N°. Correlativo Orden de Compra Exonerada</span>
+                                <span style="">__________________</span>
+                                <span>N°. Correlativo de Constancia de Registro Exonerado</span>
+                                <span style="">__________________</span>
+                                <span>N°. Identificativo de Registro de la SAG</span>
+                                <span style="">__________________</span>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+                 <table class="tbl-body" style="text-align:center;">
+                    <thead>
+                        <tr class="tbl-txtFrmt" style="background: black; color: white;">
+                            <th style="width: 10%">CODIGO#</th>
+                            <th style="width: 40%;">DESCRIPCION</th>
+                            <th style="width: 10%">CANTD</th>
+                            <th style="width: 10%">PREC/UNIT $</th>
+                            <th style="width: 15%; font-size: 17px!important; color: black">DESCUENTOS Y REBAJAS OTORGADOS</th>
+                            <th style="width: 15%">TOTAL $</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="productos" style="text-align: center;">
+                        <tr t-foreach="o.invoice_line_ids" t-as="l">
+                            <td>
+                            <span style="padding-left 5px" t-field="l.product_id.default_code"/>
+                            </td>
+                            <td class="text-justify">
+                            <span style="padding-left 10px" t-field="l.name"/>
+                            </td>
+                            <td>
+                            <span t-field="l.quantity"/>
+                            <span t-field="l.uom_id"  groups="product.group_uom"/>
+                            </td>
+                            <td>
+                                <span t-esc="l.price_unit * 1.13"
+                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            </td>
+                            <td> </td>
+
+                            <td>
+                                <span t-esc="l.price_subtotal * 1.13"
+                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="footer">
+                    <style>
+                        #el-footer tbody tr td span
+                        {
+                            padding: 10px 5px !important;
+                        }
+                        #el-footer tbody tr td
+                        {
+                            padding-left: 10px!important;
+                        }
+                        td,span
+                        {
+                            Font-size:23px!important;
+                        }
+
+                    </style>
+                     <table id="el-footer" style=" width: 100%;">
+                    <tbody style="width: 100%;" >
+                         <tr colspan="" style="background: black; color: white; font-weight: bold; line-height: 25px; text-align:left; padding: 10px;">
+                            <td style="width: 15%;"></td>
+                            <td style="width: 45%;"></td>
+                            <td style="width: 25%; text-align: left; font-size: 25px; padding: 5px 0"> TOTAL $ </td>
+                            <td style="width: 15%; text-align: left; font-size: 25px; padding: 5px 0;"> <span t-field="o.amount_total"></span></td>
+                        </tr>
+                        <tr style="height: 20px;">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr style="padding-top: 25px;">
+                            <td class="b-right content-footer" style="width: 20%;"> Valor en Letras LPS </td>
+                            <td class="b-right content-footer" style="width: 40%;"> <span t-field="o.amount_letters_hn"></span> </td>
+                            <td class="b-right content-footer" colspan="" style="width: 25%;">Importe Exonerado</td>
+                            <td class="b-right content-footer" style="width: 15%;"> <span t-field="o.amount_total"></span></td>
+                        </tr>
+                        <tr>
+                            <td class="b-right content-footer"> Fecha Limite de Emision: </td>
+                            <td class="b-right content-footer"><span t-field="o.emision_date_hn"></span> </td>
+                            <td class="b-right content-footer">Importe Exento</td>
+                            <td class="b-right content-footer"></td>
+                        </tr>
+                        <tr>
+                            <td class="b-right content-footer"> Numeracion Autorizada: </td>
+                            <td class="b-right content-footer"> <span t-field="o.numeracion"></span> </td>
+                            <td class="b-right content-footer">Descuentos y rebajas otorgados</td>
+                            <td class="b-right content-footer"></td>
+                        </tr>
+                        <tr>
+                            <td class="b-right content-footer"> Total Unid: </td>
+                            <td class="b-right content-footer"> <span t-field="o.amount_units"></span> </td>
+                            <td class="b-right content-footer" >Importe Gravado 15%</td>
+                            <td class="b-right content-footer" ></td>
+                        </tr>
+                        <tr>
+                            <td class="b-right content-footer"> Total KG: </td>
+                            <td class="b-right content-footer"> <span t-field="o.amount_kg"></span></td>
+                            <td class="b-right content-footer">Importe Gravado 18%</td>
+                            <td class="b-right content-footer" ></td>
+                        </tr>
+                        <tr>
+                            <td>No. de Bultos</td>
+                            <td><span t-field="o.no_bultos"></span></td>
+                            <td class="b-right content-footer" >ISV 15%</td>
+                            <td class="b-right content-footer" ></td>
+                        </tr>
+                        <tr>
+                            <td class="b-right content-footer"> Original: </td>
+                            <td class="b-right content-footer"> Cliente </td>
+                            <td>ISV 18%</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td class="b-right content-footer"> Copia: </td>
+                            <td class="b-right content-footer"> Emisor </td>
+                            <td class="b-right content-footer">TOTAL A PAGAR</td>
+                            <td class="b-right content-footer" > <span t-field="o.amount_total"></span></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                    <div class="firma" style="margin-top: 35px;">
+                        <table style="width:100%;">
+                            <tr>
+                                <th style="width:50%;"></th>
+                                <th style="width:50%; text-align:center!important; padding-top:20px;" ><span style="text-align:center;">__________________________________________________</span><br/><span style="text-align:center;">Nombre de recibido</span></th>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+        </div>
+        </div>
+
+
+
+      </t>
+    </template>
+  </data>
+</odoo>

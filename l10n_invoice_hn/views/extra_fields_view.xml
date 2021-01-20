@@ -1,0 +1,30 @@
+<?xml version = "1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Inherited employee form view -->
+    <record id="view_extra_fields_form" model="ir.ui.view">
+        <field name="name">view.extra.fields.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//page[@name='other_info']" position='after'>
+                <page name="hn" string="Honduras Info">
+                      <group name="datos">
+                          <group name="datos_left" string="Datos">
+                            <field name="amount_letters_hn"/>
+                              <field name="no_bultos"/>
+                              <field name="amount_units"/>
+                              <field name="amount_kg"/>
+                            <field name="emision_date_hn"/>
+                            <field name="numeracion"/>
+                        </group>
+                    </group>
+	        	</page>
+
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
