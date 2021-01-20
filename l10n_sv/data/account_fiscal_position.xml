@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Exento Ventas -->
+        <record id="fiscal_position_exento_ventas" model="account.fiscal.position.template">
+            <field name="name">Ventas Exentas</field>
+            <field name="chart_template_id" ref="sv_coa"/>
+        </record>
+
+        <record id="account_fiscal_position_exento_sale" model="account.fiscal.position.tax.template">
+            <field name="tax_src_id" ref="l10n_sv.tax2"/>
+            <field name="tax_dest_id" ref="l10n_sv.tax4"/>
+            <field name="position_id" ref="fiscal_position_exento_ventas"/>
+        </record>
+
+        <!-- No Sujeto Ventas -->
+        <record id="fiscal_position_nosujeto_ventas" model="account.fiscal.position.template">
+            <field name="name">Ventas No Sujetas</field>
+            <field name="chart_template_id" ref="sv_coa"/>
+        </record>
+
+        <record id="account_fiscal_position_nosujeto_sale" model="account.fiscal.position.tax.template">
+            <field name="tax_src_id" ref="l10n_sv.tax2"/>
+            <field name="tax_dest_id" ref="l10n_sv.tax4"/>
+            <field name="position_id" ref="fiscal_position_nosujeto_ventas"/>
+        </record>
+
+        <!-- Gran Contribuyente Venta -->
+        <record id="fiscal_position_gran_contribuyente" model="account.fiscal.position.template">
+            <field name="name">Gran Contribuyente</field>
+            <field name="chart_template_id" ref="sv_coa"/>
+        </record>
+
+        <record id="account_fiscal_position_gran_con_sale" model="account.fiscal.position.tax.template">
+            <field name="tax_src_id" ref="l10n_sv.tax2"/>
+            <field name="tax_dest_id" ref="l10n_sv.tax6"/>
+            <field name="position_id" ref="fiscal_position_gran_contribuyente"/>
+        </record>
+
+        <record id="account_fiscal_position_gran_con_sale1" model="account.fiscal.position.tax.template">
+            <field name="tax_src_id" ref="l10n_sv.tax2"/>
+            <field name="tax_dest_id" ref="l10n_sv.tax2"/>
+            <field name="position_id" ref="fiscal_position_gran_contribuyente"/>
+        </record>
+
+        <record id="account_fiscal_position_gran_con_purchase" model="account.fiscal.position.tax.template">
+            <field name="tax_src_id" ref="l10n_sv.tax1"/>
+            <field name="tax_dest_id" ref="l10n_sv.tax5"/>
+            <field name="position_id" ref="fiscal_position_gran_contribuyente"/>
+        </record>
+
+        <record id="account_fiscal_position_gran_con_purchase1" model="account.fiscal.position.tax.template">
+            <field name="tax_src_id" ref="l10n_sv.tax1"/>
+            <field name="tax_dest_id" ref="l10n_sv.tax1"/>
+            <field name="position_id" ref="fiscal_position_gran_contribuyente"/>
+        </record>
+
+        <!-- Gran Constribuyente Compra
+        <record id="fiscal_position_gran_contribuyente_compra" model="account.fiscal.position.template">
+            <field name="name">Gran Contribuyente (Compras)</field>
+            <field name="chart_template_id" ref="sv_coa"/>
+        </record>
+
+        <record id="account_fiscal_position_gran_con_purchase" model="account.fiscal.position.tax.template">
+            <field name="tax_src_id" ref="l10n_sv.tax5"/>
+            <field name="tax_dest_id" ref="l10n_sv.tax5"/>
+            <field name="position_id" ref="fiscal_position_gran_contribuyente_compra"/>
+        </record>
+
+        <record id="account_fiscal_position_gran_con_purchase1" model="account.fiscal.position.tax.template">
+            <field name="tax_src_id" ref="l10n_sv.tax1"/>
+            <field name="tax_dest_id" ref="l10n_sv.tax1"/>
+            <field name="position_id" ref="fiscal_position_gran_contribuyente_compra"/>
+        </record>-->
+
+        <!-- Ventas Locales-->
+        <record id="fiscal_position_ventas_locales" model="account.fiscal.position.template">
+            <field name="name">Ventas Locales</field>
+            <field name="chart_template_id" ref="sv_coa"/>
+        </record>
+
+        <record id="account_fiscal_position_ventas_locales" model="account.fiscal.position.tax.template">
+            <field name="tax_src_id" ref="l10n_sv.tax2"/>
+            <field name="tax_dest_id" ref="l10n_sv.tax2"/>
+            <field name="position_id" ref="fiscal_position_ventas_locales"/>
+        </record>
+
+        <!-- Ventas Exteriores-->
+        <record id="fiscal_position_ventas_internacionales" model="account.fiscal.position.template">
+            <field name="name">Ventas Internacionales</field>
+            <field name="chart_template_id" ref="sv_coa"/>
+        </record>
+
+        <record id="account_fiscal_position_ventas_internacionales" model="account.fiscal.position.tax.template">
+            <field name="tax_src_id" ref="l10n_sv.tax2"/>
+            <field name="tax_dest_id" ref="l10n_sv.tax4"/>
+            <field name="position_id" ref="fiscal_position_ventas_internacionales"/>
+        </record>
+
+
+    </data>
+</odoo>

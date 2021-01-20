@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <template id="report_invoice_document_digital">
+            <t t-call="web.html_container">
+        <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
+        <div class="header">
+
+        </div>
+   <!--############################################################################################################-->
+        <div t-att-data-oe-model="o._name" t-att-data-oe-id="o.id" t-att-data-oe-lang="o and o.env.context.get('lang')" class="page article">
+
+          <div>
+            <div style="width: 20%;float: left;">
+              <img src='/web/binary/company_logo' style="width:100%"/>
+            </div>
+
+            <div style="width:100%; text-align: center; font-size: 40px; padding-top: 30px">
+              <strong>
+              <span>
+                SEWING SOLUTIONS, S.A DE C.V
+              </span>
+              </strong>
+            </div>
+          </div>
+
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+
+          <style>
+            .tabla
+            {
+            width: 100%;
+            border-collapse: collapse;
+            }
+
+            .tablat td
+            {
+            font-size: 22px;
+            padding: 10px 4px;
+            }
+          </style>
+
+              <div style="width: 100%; border: 2px solid black; padding:5%; ">
+          <div class="row">
+            <table class="tabla tablat">
+              <tr>
+                <td style="width:50%" class="text-right">QUEDAN No:</td>
+                <td style="width:50%"> <span t-field="o.number"/> </td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="row">
+            <table class="tabla tablat">
+              <tr>
+                <td style="width:8%">Fecha:</td>
+                <td style="width:37%; border-bottom: 1px solid black"> <span t-field="o.date_invoice"/> </td>
+                <td style="width:15%; font-weight: bold;" class="text-right">POR:</td>
+                <td style="width:30%; border-bottom: 1px solid black; font-weight: bold;"> <span t-field="o.amount_total"/> </td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="row">
+            <table class="tabla tablat">
+              <tr>
+                <td style="width:40%">Quedan en nuestro poder lo(s) Comprobantes No:</td>
+                <td style="width:60%; border-bottom: 1px solid black"> <span t-field="o.reference"/> </td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="row">
+            <table class="tabla tablat">
+              <tr>
+                <td style="width:10">A favor de:</td>
+                <td style="width:90%; border-bottom: 1px solid black"> <span t-field="o.partner_id"/></td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="row">
+            <table class="tabla tablat">
+              <tr>
+                <td style="width:28%">Para su revisión y pago el dia de:</td>
+                <td style="width:73%; border-bottom: 1px solid black"> <span t-field="o.date_due"/> </td>
+              </tr>
+            </table>
+          </div>
+
+
+         <div class="row">
+            <table class="tabla tablat">
+              <tr>
+                <td style="color: white">A</td>
+              </tr>
+              <tr>
+                <td style="color: white">A </td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="row">
+            <table class="tabla tablat">
+              <tr>
+                <td style="width:44%; border-top: 1px solid black" class="text-center">Elaborado</td>
+                <td style="width:44%" class="text-center">Sello</td>
+                <td style="width:10%" class="text-right">ORIGINAL</td>
+              </tr>
+            </table>
+          </div>
+           </div>
+
+          <!--#################################################################################################################################3-->
+          <div class=" espacio">
+            <style>
+              .espacio
+              {
+                height:150px;
+              }
+            </style>
+          </div>
+          <!--##########################################################################################################################-->
+
+          <div>
+            <div style="width: 20%;float: left;">
+              <img src='/web/binary/company_logo' style="width:100%"/>
+            </div>
+
+            <div style="width:100%; text-align: center; font-size: 40px; padding-top: 30px">
+              <strong>
+              <span>
+                SEWING SOLUTIONS, S.A DE C.V
+              </span>
+              </strong>
+            </div>
+          </div>
+
+          <br/>
+          <br/>
+          <br/>
+          <br/>
+
+          <style>
+            .tabla
+            {
+            width: 100%;
+            border-collapse: collapse;
+            }
+
+            .tablat td
+            {
+            font-size: 22px;
+            padding: 10px 4px;
+            }
+          </style>
+
+              <div style="width: 100%; border: 2px solid black; padding:5%; ">
+          <div class="row">
+            <table class="tabla tablat">
+              <tr>
+                <td style="width:50%" class="text-right">QUEDAN No:</td>
+                <td style="width:50%"> <span t-field="o.number"/> </td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="row">
+            <table class="tabla tablat">
+              <tr>
+                <td style="width:8%">Fecha:</td>
+                <td style="width:37%; border-bottom: 1px solid black"> <span t-field="o.date_invoice"/> </td>
+                <td style="width:15%; font-weight: bold;" class="text-right">POR:</td>
+                <td style="width:30%; border-bottom: 1px solid black; font-weight: bold;"> <span t-field="o.amount_total"/> </td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="row">
+            <table class="tabla tablat">
+              <tr>
+                <td style="width:40%">Quedan en nuestro poder lo(s) Comprobantes No:</td>
+                <td style="width:60%; border-bottom: 1px solid black"> <span t-field="o.reference"/> </td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="row">
+            <table class="tabla tablat">
+              <tr>
+                <td style="width:10">A favor de:</td>
+                <td style="width:90%; border-bottom: 1px solid black"> <span t-field="o.partner_id"/></td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="row">
+            <table class="tabla tablat">
+              <tr>
+                <td style="width:28%">Para su revisión y pago el dia de:</td>
+                <td style="width:73%; border-bottom: 1px solid black"> <span t-field="o.date_due"/> </td>
+              </tr>
+            </table>
+          </div>
+
+
+         <div class="row">
+            <table class="tabla tablat">
+              <tr>
+                <td style="color: white">A</td>
+              </tr>
+              <tr>
+                <td style="color: white">A </td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="row">
+            <table class="tabla tablat">
+              <tr>
+                <td style="width:44%; border-top: 1px solid black" class="text-center">Elaborado</td>
+                <td style="width:44%" class="text-center">Sello</td>
+                <td style="width:10%" class="text-right">COPIA</td>
+              </tr>
+            </table>
+          </div>
+           </div>
+        </div>
+      </t>
+    </template>
+  </data>
+</odoo>

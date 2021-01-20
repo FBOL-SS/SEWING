@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="sequence_consumidor_final" model="ir.sequence">
+            <field name="name">Factura Consumidor Final</field>
+            <field name="code">account.invoice.fcf</field>
+            <field name="prefix">FCF- </field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+        </record>
+        <record id="sequence_credito_fiscal" model="ir.sequence">
+            <field name="name">Comprobante Crédito Fiscal</field>
+            <field name="code">account.invoice.ccf</field>
+            <field name="prefix">CCF- </field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+        </record>
+        <record id="sequence_nota_credito" model="ir.sequence">
+            <field name="name">Nota de Crédito</field>
+            <field name="code">account.invoice.ndc</field>
+            <field name="prefix">NDC- </field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+        </record>
+        <record id="sequence_anulacion" model="ir.sequence">
+            <field name="name">Anulacion de factura</field>
+            <field name="code">account.invoice.anu</field>
+            <field name="prefix">ANU- </field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+        </record>
+        <record id="sequence_exportacion" model="ir.sequence">
+            <field name="name">Factura de Exportación</field>
+            <field name="code">account.invoice.exp</field>
+            <field name="prefix">EXP- </field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+        </record>
+        <record id="sequence_factura_proveedor" model="ir.sequence">
+            <field name="name">Orden de Compra</field>
+            <field name="code">account.invoice.prov</field>
+            <field name="prefix">OC- </field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+        </record>
+        
+    </data>
+</odoo>

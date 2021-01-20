@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_invoice_form_sv" model="ir.ui.view">
+            <field name="name">Amount to Text</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//form/header" position="inside">
+                    <button name="print_report" type="object"
+                        string="Quedan"/>
+                </xpath>
+
+                <xpath expr="//field[@name='comment']" position="before">
+                    <field class="oe_left" name="amount_text" placeholder="amount to text"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

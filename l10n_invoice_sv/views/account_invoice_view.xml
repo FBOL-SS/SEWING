@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_invoice_form_sv" model="ir.ui.view">
+            <field name="name">Amount to Text</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='comment']" position="before">
+                    <field class="oe_left" name="amount_text" placeholder="amount to text"/>
+                </xpath>
+                <xpath expr="//field[@name='journal_id']" position="replace">
+                    <field name="inv_refund_id" readonly="True"/>
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="journal_id"
+                           groups="account.group_account_user"
+                           options="{'no_create': True}" attrs="{'readonly':[('move_name','!=',False)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='state']" position="replace">
+                    <field name="state"
+                           attrs="{'invisible':[('state_refund','=','refund')]}"
+                           widget="statusbar" nolabel="1" statusbar_visible="draft,open,paid"/>
+                    <field name="state_refund"
+                           attrs="{'invisible':[('state_refund','!=','refund')]}"
+                           statusbar_visible="refund" widget="statusbar" nolabel="1"/>
+                </xpath>
+                <xpath expr="//button[@name='%(account.action_account_invoice_refund)d']" position="replace">
+                    <button name="%(account.action_account_invoice_refund)d"
+                            type='action'
+                            string='Refund Invoice'
+                            groups="account.group_account_invoice"
+                            attrs="{'invisible': ['|',('type', '=', 'out_refund'), ('state', 'not in', ('open','proforma2','paid')),('state_refund','!=','refund')]}"/>
+                </xpath>
+
+            </field>
+        </record>
+        <record id="view_invoice_sv_tree" model="ir.ui.view">
+            <field name="name">Amount to Text</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='state']" position="after">
+                    <field name="state_refund"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

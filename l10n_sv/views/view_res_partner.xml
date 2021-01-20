@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <odoo>
+        <data>
+            <record model="ir.ui.view" id="view_partner_l10n_sv_account">
+                <field name="name">view_partner_l10n_sv_account</field>
+                <field name="model">res.partner</field>
+                <field name="inherit_id" ref="account.view_partner_property_form"/>
+                <field name="arch" type="xml">
+                    <group position="inside" name="fiscal_information">
+                        <field name="nit" attrs="{'required': [('is_company', '=', True)]}"/>
+                        <field name="nrc" attrs="{'required': [('is_company', '=', True)]}"/>
+                        <field name="giro" attrs="{'required': [('is_company', '=', True)]}"/>
+                    </group>
+                    <field name="vat" position="replace">
+                        <field name="vat" invisible="True"/>
+                    </field>
+
+                    <field name="function" position="before">
+                        <field name="dui" attrs="{'invisible': [('is_company', '=', True)]}"/>
+                    </field>
+                </field>
+            </record>
+            <record model="ir.ui.view" id="view_partner_l10n_sv">
+                <field name="name">view_partner_l10n_sv</field>
+                <field name="model">res.partner</field>
+                <field name="inherit_id" ref="base.view_partner_form"/>
+                <field name="arch" type="xml">
+                    <xpath expr="//field[@name='child_ids']/form//field[@name='name']" position="after">
+                        <field name="dui"/>
+                    </xpath>
+
+                    <field name="property_account_position_id" position="attributes">
+                        <attribute name="required">True</attribute>
+                    </field>
+
+                </field>
+            </record>
+                
+            <record model="ir.ui.view" id="view_partner_search_l10n_sv">
+                <field name="name">view_parnert_search_l10n_sv</field>
+                <field name="model">res.partner</field>
+                <field name="inherit_id" ref="base.view_res_partner_filter"/>
+                <field name="arch" type="xml">
+                    <field name="name" position="after">
+                        <field name="dui"/>
+                        <field name="nit"/>
+                        <field name="nrc"/>
+                    </field>
+                </field>
+            </record>
+        </data>
+    </odoo>
+    

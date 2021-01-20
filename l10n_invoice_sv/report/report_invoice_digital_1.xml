@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <template id="report_invoice_document_digital_1">
+            <t t-call="web.html_container">
+        <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
+        <div class="header">
+
+        </div>
+   <!--############################################################################################################-->
+        <div t-att-data-oe-model="o._name" t-att-data-oe-id="o.id" t-att-data-oe-lang="o and o.env.context.get('lang')" class="page article">
+
+
+            <style type="text/css">
+            .mytable {
+              border-collapse: collapse;
+              width: 100%;
+              }
+              .tabla-trh td {
+              font-size: 24px;
+              padding: 12px 4px;
+              border: 1px solid red;
+              }
+            </style>
+
+          <div class="row">
+            <table class="mytable tabla-trh" >
+              <tr>
+                <td width="15.07%" style="color: white;">. </td>
+                <td width="46.73%"> <span t-field="o.date_invoice"/> </td>
+                <td width="37.68%"> </td>
+              </tr>
+
+                <tr>
+                    <td  style="color: white;">.</td>
+                    <td rowspan="2"> <span t-field="o.partner_id"/> </td>
+                    <td> </td>
+                </tr>
+                <tr>
+                    <td style="color: white;">.</td>
+                    <td> </td>
+                </tr>
+                <tr>
+                    <td style="color: white;">.</td>
+                    <td rowspan="2">
+                        <span t-if="o.partner_id.street">
+                            <span t-field="o.partner_id.street"/>
+                         </span>
+                        <span t-if="o.partner_id.street2">
+                            , <span t-field="o.partner_id.street2"/>
+                        </span>
+                    </td>
+                    <td> </td>
+                </tr>
+                <tr>
+                    <td style="color: white;">.</td>
+                    <td> </td>
+                </tr>
+
+                <tr>
+                    <td style="color: white;">.</td>
+                    <td> <span t-field="o.partner_id.dui"/> </td>
+                    <td> </td>
+                </tr>
+                <tr>
+                    <td style="color: white;">.</td>
+                    <td> <span t-field="o.partner_id.nit"/> </td>
+                    <td> </td>
+                </tr>
+
+                <tr>
+                    <td style="color: white;">.</td>
+                    <td> <span t-field="o.partner_id.phone"/> </td>
+                    <td> </td>
+                </tr>
+            </table>
+            </div>
+
+            <style>
+            #tabla-3
+            {
+            width: 100%;
+            }
+
+            #tabla-3 td
+            {
+            font-size: 23px;
+            border: 1px solid red;
+            }
+            #tabla-3 th{
+            padding: 18px 2px;
+            border: 1px solid red;
+            }
+
+          </style>
+
+          <div class="row">
+            <table id="tabla-3" class="text-center">
+              <thead>
+                <tr>
+                  <th style="width:11.05%; height: 39.4px;"> </th>
+                  <th style="width:63.81%"> </th>
+                  <th style="width:12.56%"> </th>
+                  <th style="width:12.56%"> </th>
+                </tr>
+              </thead>
+                <tbody>
+                <tr t-foreach="o.invoice_line_ids" t-as="l">
+                  <td>
+                      <span t-field="l.quantity"/>
+                      <span t-field="l.uom_id"  groups="product.group_uom"/>
+                  </td>
+                  <td class="text-justify">
+                    <span style="padding-left 10px" t-field="l.name"/>
+                  </td>
+                  <td>
+                    <span t-esc="l.price_unit"
+                           t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                  </td>
+                  <td>
+                      <span t-esc="l.price_subtotal"
+                          t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                  </td>
+                  </tr>
+              </tbody>
+              </table>
+          </div>
+
+          <div class="footer">
+              <style>
+            #total{
+              width: 100%;
+            }
+            #total td{
+              padding: 1px 1px;
+              font-size: 23px;
+              border: 1px solid red;
+            }
+          </style>
+          <div class="row">
+            <table id="total">
+              <tr>
+                  <td style="width: 63.81%;"> </td>
+                  <td style="width: 23.11%;"> </td>
+                  <td style="width: 12.06%; height: 45px;" class="text-right">
+                    <span t-field="o.amount_total"/>
+                </td>
+              </tr>
+              <tr>
+                  <td>
+                      <span t-field="o.amount_text"/>
+                  </td>
+                  <td> </td>
+                  <td> </td>
+              </tr>
+              <tr>
+                  <td> </td>
+                  <td> </td>
+                  <td>
+                      <span t-field="o.amount_total"/>
+                  </td>
+              </tr>
+            </table>
+          </div>
+          </div>
+        </div>
+      </t>
+    </template>
+  </data>
+</odoo>

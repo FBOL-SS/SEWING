@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="1">
+
+            <!-- Account Tags -->
+
+        <record id="tax_tag_iva_credito" model="account.account.tag">
+            <field name="name">IVA 13% Compras</field>
+            <field name="applicability">taxes</field>
+        </record>
+
+        <record id="tax_tag_iva_debito" model="account.account.tag">
+            <field name="name">IVA 13% Ventas</field>
+            <field name="applicability">taxes</field>
+        </record>
+
+        <record id="tax_tag_exportacion" model="account.account.tag">
+          <field name="name">0% Exportaciones</field>
+          <field name="applicability">taxes</field>
+         </record>
+
+        <record id="tax_tag_percepcion" model="account.account.tag">
+          <field name="name">Percepción 1%</field>
+          <field name="applicability">taxes</field>
+        </record>
+
+      <record id="tax_tag_retencion" model="account.account.tag">
+          <field name="name">Retención 1%</field>
+          <field name="applicability">taxes</field>
+      </record>
+
+      <record id="tax_tag_renta" model="account.account.tag">
+          <field name="name">Renta 10%</field>
+          <field name="applicability">taxes</field>
+      </record>
+
+      <record id="tax_tag_cesc" model="account.account.tag">
+          <field name="name">CESC 5%</field>
+          <field name="applicability">taxes</field>
+      </record>
+
+
+        <!-- Compras e IVA por Compras -->
+
+        <record id="tax1" model="account.tax.template">
+            <field name="chart_template_id" ref="sv_coa"/>
+            <field name="name">IVA 13% Compras</field>
+            <field name="description">IVA 13% Compras</field>
+            <field name="amount" eval="13"/>
+            <field name="amount_type">percent</field>
+            <field name="account_id" ref="l10n_sv_0003"/>
+            <field name="refund_account_id" ref="l10n_sv_0003"/>
+            <field name="type_tax_use">purchase</field>
+            <field name="price_include" eval="False"/>
+            <field name="tag_ids" eval="[(6,0,[ref('tax_tag_iva_credito')])]"/>
+            <field name="tax_group_id" ref="tax_group_iva_13_purchase"/>
+        </record>
+
+        <!-- Ventas e IVA por Ventas -->
+
+        <record id="tax2" model="account.tax.template">
+            <field name="chart_template_id" ref="sv_coa"/>
+            <field name="name">IVA 13% Ventas</field>
+            <field name="description">IVA 13% Ventas</field>
+            <field name="amount" eval="13"/>
+            <field name="amount_type">percent</field>
+            <field name="account_id" ref="l10n_sv_0004"/>
+            <field name="refund_account_id" ref="l10n_sv_0004"/>
+            <field name="type_tax_use">sale</field>
+            <field name="price_include" eval="False"/>
+            <field name="tag_ids" eval="[(6,0,[ref('tax_tag_iva_debito')])]"/>
+            <field name="tax_group_id" ref="tax_group_iva_13_sale"/>
+        </record>
+
+
+        <!-- CESC 5% Compras -->
+
+        <record id="tax3" model="account.tax.template">
+            <field name="chart_template_id" ref="sv_coa"/>
+            <field name="name">CESC 5%</field>
+            <field name="description">CESC 5%</field>
+            <field name="amount" eval="5"/>
+            <field name="amount_type">percent</field>
+            <field name="account_id" ref="l10n_sv_0005"/>
+            <field name="refund_account_id" ref="l10n_sv_0005"/>
+            <field name="type_tax_use">purchase</field>
+            <field name="price_include" eval="False"/>
+            <field name="tag_ids" eval="[(6,0,[ref('tax_tag_cesc')])]"/>
+            <field name="tax_group_id" ref="tax_group_cesc_5"/>
+        </record>
+
+        <!-- Exportaciones -->
+
+        <record id="tax4" model="account.tax.template">
+            <field name="chart_template_id" ref="sv_coa"/>
+            <field name="name">Exportaciones 0%</field>
+            <field name="description">Exportaciones 0%</field>
+            <field name="amount" eval="0"/>
+            <field name="amount_type">percent</field>
+            <field name="account_id" ref="l10n_sv_0006"/>
+            <field name="refund_account_id" ref="l10n_sv_0006"/>
+            <field name="type_tax_use">sale</field>
+            <field name="price_include" eval="False"/>
+            <field name="tag_ids" eval="[(6,0,[ref('tax_tag_exportacion')])]"/>
+            <field name="tax_group_id" ref="tax_group_iva_0"/>
+        </record>
+
+        <!-- Percepción 1% Compras -->
+
+        <record id="tax5" model="account.tax.template">
+            <field name="chart_template_id" ref="sv_coa"/>
+            <field name="name">Percepción 1%</field>
+            <field name="description">Percepción sobre compras 1%</field>
+            <field name="amount" eval="1"/>
+            <field name="amount_type">percent</field>
+            <field name="account_id" ref="l10n_sv_0008"/>
+            <field name="refund_account_id" ref="l10n_sv_0008"/>
+            <field name="type_tax_use">purchase</field>
+            <field name="price_include" eval="False"/>
+            <field name="tag_ids" eval="[(6,0,[ref('tax_tag_percepcion')])]"/>
+            <field name="tax_group_id" ref="tax_group_percepcion_1"/>
+        </record>
+
+        <!-- Retención 1% Ventas -->
+
+        <record id="tax6" model="account.tax.template">
+            <field name="chart_template_id" ref="sv_coa"/>
+            <field name="name">Retención 1%</field>
+            <field name="description">Retención sobre ventas 1%</field>
+            <field name="amount" eval="-1"/>
+            <field name="amount_type">percent</field>
+            <field name="account_id" ref="l10n_sv_0007"/>
+            <field name="refund_account_id" ref="l10n_sv_0007"/>
+            <field name="type_tax_use">sale</field>
+            <field name="price_include" eval="False"/>
+            <field name="tag_ids" eval="[(6,0,[ref('tax_tag_retencion')])]"/>
+            <field name="tax_group_id" ref="tax_group_retencion_1"/>
+        </record>
+
+        <!-- Renta 10% Compras -->
+        
+        <record id="tax7" model="account.tax.template">
+            <field name="chart_template_id" ref="sv_coa"/>
+            <field name="name">Renta 10%</field>
+            <field name="description">Renta 10%</field>
+            <field name="amount" eval="-10"/>
+            <field name="amount_type">percent</field>
+            <field name="account_id" ref="l10n_sv_0011"/>
+            <field name="refund_account_id" ref="l10n_sv_0011"/>
+            <field name="type_tax_use">purchase</field>
+            <field name="price_include" eval="False"/>
+            <field name="tag_ids" eval="[(6,0,[ref('tax_tag_renta')])]"/>
+            <field name="tax_group_id" ref="tax_group_renta_10"/>
+        </record>
+
+    </data>
+</odoo>
