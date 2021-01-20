@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="libro_iva_report_compras">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="reporte_impuestos_sv.libro_iva_report_compras_document"
+                       t-lang="doc.company_id.partner_id.lang"/>
+                </t>
+            </t>
+        </template>
+        <template id="libro_iva_report_compras_document">
+            <t t-set="doc" t-value="doc.with_context({'lang':doc.company_id.partner_id.lang})"/>
+            <t t-call="reporte_impuestos_sv.iva_layout">
+                <div class="page article">
+                    <style>
+                        span{font-size: x-small !important;}
+                        table {border-collapse: collapse !important; width: 100%;}
+                        table th, table td {padding: 1px;}
+                        table th {vertical-align: middle !important;}
+                        th {
+                            font-size: x-small !important;
+                            border-top: 1px solid gray;
+                            border-bottom: 1px solid gray;
+                        }
+                        td {
+                            border-left: 1px solid gray !important;
+                            border-bottom: 0.5px solid #C899AD !important;
+                            border-bottom-style: dashed;
+                            border-right: 1px solid gray !important;
+                        }
+                    </style>
+                    <div class="container">
+                        <table>
+                            <col/>
+                            <col/>
+                            <col/>
+                            <col/>
+                            <col/>
+                            <col/>
+                            <colgroup span="2"></colgroup>
+                            <colgroup span="3"></colgroup>
+                            <col/>
+                            <col/>
+                            <col/>
+                            <col/>
+                            <thead>
+                                <tr>
+                                    <th rowspan="2" class="text-center" style="width: 5%;"> Num </th>
+                                    <th rowspan="2" class="text-center" style="width: 5%;"> Fecha </th>
+                                    <th rowspan="2" class="text-center" style="width: 5%;"> Doc # </th>
+                                    <th rowspan="2" class="text-center" style="width: 5%;"> N.R.C </th>
+                                    <th rowspan="2" class="text-center" style="width: 5%;"> DUI o NIT de Sujeto Excluido </th>
+                                    <th rowspan="2" class="text-center" style="width: 25%;"> Nombre del Porveedor </th>
+                                    <th colspan="2" class="text-center" style="border-bottom: 1px solid white !important;" scope="colgroup"> Compras Exentas </th>
+                                    <th colspan="3" class="text-center" style="border-bottom: 1px solid white !important;" scope="colgroup"> Compras Gravadas </th>
+                                    <th rowspan="2" class="text-center" style="width: 5%; font-size: xx-small;"> Anticipo a Cuenta IVA Retenido </th>
+                                    <th rowspan="2" class="text-center" style="width: 5%; font-size: xx-small;"> Anticipo a Cuenta IVA Percibido </th>
+                                    <th rowspan="2" class="text-center" style="width: 5%;"> Total Compras </th>
+                                    <th rowspan="2" class="text-center" style="width: 5%; font-size: xx-small;"> Compras a Sujetos Excluidos </th>
+                                </tr>
+                                <tr>
+                                    <th scope="col" class="text-center" style="width: 5%; border-top: none; font-size: xx-small;"> Internas </th>
+                                    <th scope="col" class="text-center" style="width: 5%; border-top: none; font-size: xx-small;"> Importacion e Internacion</th>
+                                    <th scope="col" class="text-center" style="width: 5%; border-top: none; font-size: xx-small;"> Internas </th>
+                                    <th scope="col" class="text-center" style="width: 5%; border-top: none; font-size: xx-small;"> Importacion e Internacion</th>
+                                    <th scope="col" class="text-center" style="width: 5%; border-top: none; font-size: xx-small;"> Credito Fiscal </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Inicializando Variables -->
+                                <t t-set="internas_e" t-value="0"/>
+                                <t t-set="importaciones_e" t-value="0"/>
+                                <t t-set="internas_g" t-value="0"/>
+                                <t t-set="importaciones_g" t-value="0"/>
+                                <t t-set="iva_credito_g" t-value="0"/>
+                                <t t-set="retenciones" t-value="0"/>
+                                <t t-set="percepcion" t-value="0"/>
+                                <t t-set="totales" t-value="0"/>
+                                <t t-set="excluidas" t-value="0"/>
+
+                                <tr t-foreach="doc.libro_line_fcf" t-as="l">
+                                    <td class="text-center"><span t-field="l.correlativo"/></td>
+                                    <td class="text-center"><span t-field="l.fecha_doc"/></td>
+                                    <td class="text-center"><span t-field="l.num_doc"/></td>
+                                    <td class="text-center"><span t-field="l.nrc"/></td>
+                                    <td class="text-center"><span t-field="l.dui"/><t t-if="l.nit">/</t><span t-field="l.nit"/></td>
+                                    <td class="text-center"><span t-field="l.name"/></td>
+                                    <td class="text-center">
+                                        <span t-field="l.internas_e"
+                                              t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/>
+                                        <t t-set="internas_e" t-value="l.internas_e + internas_e"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.importaciones_e"
+                                              t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/>
+                                        <t t-set="importaciones_e" t-value="l.importaciones_e + importaciones_e"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.internas_g"
+                                              t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/>
+                                        <t t-set="internas_g" t-value="l.internas_g + internas_g"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.importaciones_g"
+                                              t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/>
+                                        <t t-set="importaciones_g" t-value="l.importaciones_g + importaciones_g"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.iva_credito_g"
+                                              t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/>
+                                        <t t-set="iva_credito_g" t-value="l.iva_credito_g + iva_credito_g"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.retenciones"
+                                              t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/>
+                                        <t t-set="retenciones" t-value="l.retenciones + retenciones"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.percepcion"
+                                              t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/>
+                                        <t t-set="percepcion" t-value="l.percepcion + percepcion"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.totales"
+                                              t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/>
+                                        <t t-set="totales" t-value="l.totales + totales"/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="l.excluidas"
+                                              t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/>
+                                        <t t-set="excluidas" t-value="l.excluidas + excluidas"/>
+                                    </td>
+                                </tr>
+                                <tr style="font-weight: bold;">
+                                    <td colspan="6" class="text-center">Total General</td>
+                                    <td class="text-center">
+                                        <span t-esc="internas_e"
+                                              t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-esc="importaciones_e"
+                                              t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-esc="internas_g"
+                                              t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-esc="importaciones_g"
+                                              t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-esc="iva_credito_g"
+                                              t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-esc="retenciones"
+                                              t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-esc="percepcion"
+                                              t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-esc="totales"
+                                              t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/>
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-esc="excluidas"
+                                              t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

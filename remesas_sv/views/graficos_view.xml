@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_graph_remesa_sv" model="ir.ui.view">
+    <field name="name">view_graph_remesa_sv</field>
+    <field name="model">remesa.sv</field>
+    <field name="arch" type="xml">
+        <graph type="pivot">
+            <field name="fecha_remesa" type="measure" />
+            <field name="total" type="col"/>
+        </graph>
+    </field>
+</record>
+</odoo>

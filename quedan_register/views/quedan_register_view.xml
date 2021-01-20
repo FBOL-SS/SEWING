@@ -1,0 +1,25 @@
+<?xml version = "1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Inherited employee form view -->
+    <record id="view_quedan_register_form" model="ir.ui.view">
+        <field name="name">view.quedan.register.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='other_info']" position='after'>
+                     <page name="registro" string="Registro de Quedan">
+                      <group name="datos">
+                          <group name="datos_left" string="Datos">
+                            <field name="fecha"/>
+                            <field name="no_quedan"/>
+                            <field name="entrega"/>
+                            <field name="recibe"/>
+                            <field name="other_invoice"/>
+                        </group>
+                    </group>
+	        	</page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

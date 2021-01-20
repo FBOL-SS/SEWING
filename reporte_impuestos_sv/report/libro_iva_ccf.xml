@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="libro_iva_report_ccf">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="reporte_impuestos_sv.libro_iva_report_ccf_document"
+                       t-lang="doc.company_id.partner_id.lang"/>
+                </t>
+            </t>
+        </template>
+        <template id="libro_iva_report_ccf_document">
+            <t t-set="doc" t-value="doc.with_context({'lang':doc.company_id.partner_id.lang})"/>
+            <t t-call="reporte_impuestos_sv.iva_layout">
+
+                <div class="page article">
+                    <style>
+
+                    </style>
+                    <div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th class="text-center" colspan="2">Ventas Internas</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            <tr class="text-center">
+                                <th class="text-center" style="width: 5%;">
+                                    No.
+                                </th>
+                                <th class="text-center" style="width: 5%;">
+                                    Fecha de Emisión
+                                </th>
+                                <th class="text-center" style="width: 10%;">
+                                    No. Documento
+                                </th>
+                                <th class="text-center" style="width: 10%;">
+                                    No. Formulario único
+                                </th>
+
+                                <th class="text-center" style="width: 40%;">
+                                    Nombre Contribuyente
+                                </th>
+                                <th class="text-center" style="width: 10%;">
+                                    N.R.C
+                                </th>
+
+                                <th class="text-center" style="width: 5%;">
+                                    Exentas
+                                </th>
+                                <th class="text-center" style="width: 5%;">
+                                    Gravadas
+                                </th>
+                                <th class="text-center" style="width: 5%;">
+                                    Débito Fiscal
+                                </th>
+                                <th class="text-center" style="width: 5%;">
+                                    IVA Retenido
+                                </th>
+                                <th class="text-center" style="width: 10%;">
+                                    Total Ventas
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Inicializando Variables -->
+                            <t t-set="exentas" t-value="0"/>
+                            <t t-set="gravadas" t-value="0"/>
+                            <t t-set="debito_fiscal" t-value="0"/>
+                            <t t-set="retenciones" t-value="0"/>
+                            <t t-set="totales" t-value="0"/>
+
+                            <tr t-foreach="doc.libro_line_fcf" t-as="l">
+                                <td class="text-center">
+                                    <span t-field="l.correlativo"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="l.fecha_doc"/>
+                                </td>
+
+                                <td class="text-center">
+                                    <span t-field="l.prefijo"/>
+                                    -
+                                    <span t-field="l.num_doc"/>
+                                </td>
+                                <td class="text-center">-</td>
+                                <td class="text-center">
+                                    <span t-field="l.name"/>
+                                </td>
+                                <td class="text-center">
+                                    <span t-field="l.nrc"/>
+                                </td>
+
+                                <td class="text-right">
+                                    <span t-field="l.exentas_nosujetas"
+                                          t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/>
+                                    <t t-set="exentas" t-value="l.exentas_nosujetas + exentas"/>
+                                </td>
+
+                                <td class="text-right">
+                                    <span t-field="l.gravadas"
+                                          t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/>
+                                    <t t-set="gravadas" t-value="l.gravadas + gravadas"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="l.debito_fiscal"
+                                          t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/>
+                                    <t t-set="debito_fiscal" t-value="l.debito_fiscal + debito_fiscal"/>
+                                </td>
+
+                                <td class="text-right">
+                                    <span t-field="l.retenciones"
+                                          t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/>
+                                    <t t-set="retenciones" t-value="l.retenciones + retenciones"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="l.totales"
+                                          t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/>
+                                    <t t-set="totales" t-value="l.totales + totales"/>
+                                </td>
+
+                            </tr>
+                            <tr style="font-weight: bold;">
+                                <td colspan="6" class="text-center">
+                                    Total General
+                                </td>
+
+                                <td class="text-right">
+                                    <span t-esc="exentas"
+                                          t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="gravadas"
+                                          t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="debito_fiscal"
+                                          t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/>
+                                </td>
+
+                                <td class="text-right">
+                                    <span t-esc="retenciones"
+                                          t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-esc="totales"
+                                          t-options='{"widget": "monetary", "display_currency": doc.company_currency_id}'/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+
+
+                    <style>
+                        .container-tabla-detalles
+                        {
+                        margin-top:10%;
+
+
+                        }
+
+
+                        .container-tabla-detalles  th
+                        {
+                        padding: 7px 25px;
+                        margin-right: 10px;
+                        border:1px solid #ccc;
+
+                        }
+                        .container-tabla-detalles td {
+                        padding: 7px 25px;
+                        margin-right: 10px;
+                        border:1px solid #ccc;
+                        }
+                    </style>
+
+
+                    <div class="container-tabla-detalles d-flex justify-content-center">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    Detalle
+                                </th>
+                                <th>
+                                    Valor
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="doc.resumen_line_ccf" t-as="r">
+                                <td>
+                                    <span t-field="r.detalle"/>
+                                </td>
+                                <td>
+                                    <span t-field="r.total"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

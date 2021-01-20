@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_tree_libro_iva" model="ir.ui.view">
+            <field name="name">libro.iva.tree</field>
+            <field name="model">libro.iva</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name='name' string="Libro"/>
+                    <field name="fecha"/>
+                    <field name="mes"/>
+                    <field name="responsable_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_libro_iva_form" model="ir.ui.view">
+            <field name="name">libro.iva.form</field>
+            <field name="model">libro.iva</field>
+            <field name="arch" type="xml">
+                <form string="Libro de Iva">
+                    <header>
+                        <button name="iva_print" groups="account.group_account_user" string="Imprimir" type="object"/>
+                        <field name="state" widget="statusbar" nolabel="1" statusbar_visible="draft,open"
+                               statusbar_colors='{"draft":"blue","close":"gray","open":"green"}' invisible="1"/>
+                    </header>
+                    <sheet string="Libro de Iva">
+                        <field name="type" invisible="1"/>
+                        <group>
+                            <group col="2">
+                                <h1>
+                                    <field name="name" readonly='True'/>
+                                </h1>
+                            </group>
+                            <group col="2">
+                                <div class="oe_right oe_button_box">
+                                    <button attrs="{'invisible': [('type','!=','fcf')]}"
+                                            groups="account.group_account_user"
+                                            class="oe_inline oe_stat_button oe_right" name="datos_iva_fcf"
+                                            string="Obtener Datos" Help="Generar datos de libro de IVA" type="object"
+                                            widget="statinfo" icon="fa-pencil-square-o"/>
+                                    <button attrs="{'invisible': [('type','!=','ccf')]}"
+                                            groups="account.group_account_user"
+                                            class="oe_inline oe_stat_button oe_right" name="datos_iva_ccf"
+                                            string="Obtener Datos" Help="Generar datos de libro de IVA" type="object"
+                                            widget="statinfo" icon="fa-pencil-square-o"/>
+                                    <button attrs="{'invisible': [('type','!=','compras')]}"
+                                            groups="account.group_account_user"
+                                            class="oe_inline oe_stat_button oe_right" name="datos_iva_compra"
+                                            string="Obtener Datos" Help="Generar datos de libro de IVA" type="object"
+                                            widget="statinfo" icon="fa-pencil-square-o"/>
+                                </div>
+                            </group>
+                            <group col="2">
+                                <field name="nrc"/>
+                                <field name="nit"/>
+                            </group>
+                            <group col="2">
+                                <field name="usuario_id"/>
+                                <field name="responsable_id" widget="selection" domain="[('company_id','=',company_id)]"
+                                       string="Contador" attr="{'readonly': [('state','!=','draft')]}"/>
+                            </group>
+                            <group col="2">
+                                <field name="fecha" attr="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="mes" attr="{'readonly': [('state','!=','draft')]}"/>
+                            </group>
+                            <group col="2">
+                                <field name="company_id" string="Compañia"/>
+                                <field name="company_currency_id" string="Moneda"/>
+                            </group>
+                        </group>
+                        <notebook>
+
+                            <page string="Detalle Credito Fiscal" attrs="{'invisible': [('type','!=','ccf')]}">
+                                <field name="libro_line_ccf">
+                                    <tree string="Credito Fiscal">
+                                        <field name="correlativo" string="Num. Corr"/>
+                                        <field name="fecha_doc" string="Fecha Emision"/>
+                                        <field name="num_doc" string="Correlativo"/>
+                                        <field name="prefijo" string="Serie"/>
+                                        <field name="name" string="Nombre"/>
+                                        <field name="exentas_nosujetas" sum="exentas_t" string="Ventas Exentas"/>
+                                        <field name="gravadas" sum="gravadas_t" string="Ventas Gravadas"/>
+                                        <field name="debito_fiscal" sum="iva" string="Debito Fiscal"/>
+                                        <field name="retenciones" sum="iva_r" string="IVA Retenido"/>
+                                        <field name="totales" sum="totales" string="Ventas Totales"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="correlativo" string="Num. Corr"/>
+                                                <field name="fecha_doc" string="Fecha Emision"/>
+                                                <field name="num_doc" string="Correlativo"/>
+                                                <field name="prefijo" string="Serie"/>
+                                                <field name="name" string="Nombre"/>
+                                                <field name="nrc" string="N.R.C."/>
+                                            </group>
+                                            <group>
+                                                <field name="exentas_nosujetas" sum="exentas_t"
+                                                       string="Ventas Exentas"/>
+                                                <field name="gravadas" sum="gravadas_t" string="Ventas Gravadas"/>
+                                                <field name="debito_fiscal" sum="iva" string="Debito Fiscal"/>
+                                                <field name="retenciones" sum="iva_r" string="IVA Retenido"/>
+                                                <field name="totales" sum="totales" string="Ventas Totales"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+
+                            <page string="Detalle Consumidor Final" attrs="{'invisible': [('type','!=','fcf')]}">
+                                <field name="libro_line_fcf">
+                                    <tree string="Consumidor Final">
+                                        <field name="dia"/>
+                                        <field name="num_inicial" string="Del No."/>
+                                        <field name="num_final" string="Al No."/>
+                                        <field name="nosujetas" sum="nosujetas" string="No Sujetas"/>
+                                        <field name="exentas_nosujetas" sum="exentas_p" string="Ventas Exentas"/>
+                                        <field name="gravadas" sum="gravadas" string="Vta G. Locales"/>
+                                        <field name="exportaciones" sum="exportaciones" string="Vta G. Exportaciones"/>
+                                        <field name="totales" sum="totales" string="Ventas Totales"/>
+                                    </tree>
+                                    <form string="Items">
+                                        <group>
+                                            <group>
+                                                <field name="dia"/>
+                                                <field name="num_inicial" string="Del No."/>
+                                                <field name="num_final" string="Al No."/>
+                                            </group>
+                                            <group>
+                                                <field name="exentas_nosujetas" string="Ventas Exentas"/>
+                                                <field name="gravadas" string="Vta G. Locales"/>
+                                                <field name="exportaciones" string="Vta G. Exportaciones"/>
+                                                <field name="nosujetas" string="No Sujetas"/>
+                                                <field name="totales" string="Ventas Totales"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+
+                            <page string="Detalle Compras" attrs="{'invisible': [('type','!=','compras')]}">
+                                <field name="libro_line_compras">
+                                    <tree string="Compras">
+                                        <field name="correlativo" string="No"/>
+                                        <field name="fecha_doc" string="Fecha"/>
+                                        <field name="num_doc" string="N Doc"/>
+                                        <field name="name" string="Nombre"/>
+                                        <field name="internas_e" sum="Inter E" string="Int E"/>
+                                        <field name="importaciones_e" sum="Impor E" string="Impor E"/>
+                                        <field name="internas_g" sum="Int G" string="Int G"/>
+                                        <field name="importaciones_g" sum="Impor G" string="Impor G"/>
+                                        <field name="iva_credito_g" sum="Credito Fiscal" string="Credito Fiscal"/>
+                                        <field name="retenciones" sum="retencion" string="IVA Retenido"/>
+                                        <field name="percepcion" sum="percepcion" string="IVA Percibido"/>
+                                        <field name="totales" sum="Totales" string="Total Compras"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="correlativo" string="No"/>
+                                                <field name="fecha_doc" string="Fecha"/>
+                                                <field name="num_doc" string="N Doc"/>
+                                                <field name="nrc" string="N.R.C"/>
+                                                <field name="name" string="Nombre"/>
+                                            </group>
+                                            <group>
+                                                <field name="internas_e" string="Int E"/>
+                                                <field name="importaciones_e" string="Impor E"/>
+                                                <field name="internas_g" string="Int G"/>
+                                                <field name="importaciones_g" string="Impor G"/>
+                                                <field name="iva_credito_g" string="Credito Fiscal"/>
+                                                <field name="retenciones" string="IVA Retenido"/>
+                                                <field name="percepcion" string="IVA Percibido"/>
+                                                <field name="totales" string="Total Compras"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+
+                            <page string="Resumen Consumidor Final" attrs="{'invisible': [('type','!=','fcf')]}">
+                                <field name="resumen_line_fcf">
+                                    <tree string="Resumen">
+                                        <field name="detalle"/>
+                                        <field name="total"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="detalle"/>
+                                            </group>
+                                            <group>
+                                                <field name="total"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                            <page string="Resumen Credito Fiscal" attrs="{'invisible': [('type','!=','ccf')]}">
+                                <field name="resumen_line_ccf">
+                                    <tree string="Resumen">
+                                        <field name="detalle"/>
+                                        <field name="total"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="detalle"/>
+                                            </group>
+                                            <group>
+                                                <field name="total"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                            <page string="Resumen Compras" attrs="{'invisible': [('type','!=','compras')]}">
+                                <field name="resumen_line_compras">
+                                    <tree string="Resumen">
+                                        <field name="detalle"/>
+                                        <field name="total"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="detalle"/>
+                                            </group>
+                                            <group>
+                                                <field name="total"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <!--CREAMOS LA ACCION QUE LLAMARA LA VISTA TREE PARA QUE SE CARGUE AUTOMATICAMENTE-->
+        <record id="action_libro_iva_tree_ccf" model="ir.actions.act_window">
+            <field name="name">Libro Credito Fiscal</field>
+            <field name="res_model">libro.iva</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('type', '=', 'ccf')]</field>
+            <field name="context">{'type': 'ccf', 'default_type': 'ccf'}</field>
+            <field name="view_mode">tree,form</field><!-- pendiente ,calendar,graph-->
+            <field name="view_id" ref="view_tree_libro_iva"/>
+        </record>
+        <!--CREAMOS LA ACCION QUE LLAMARA LA VISTA TREE PARA QUE SE CARGUE AUTOMATICAMENTE-->
+        <record id="action_libro_iva_tree_fcf" model="ir.actions.act_window">
+            <field name="name">Libro Consumidor Final</field>
+            <field name="res_model">libro.iva</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('type', '=', 'fcf')]</field>
+            <field name="context">{'type': 'fcf', 'default_type': 'fcf'}</field>
+            <field name="view_mode">tree,form</field><!-- pendiente ,calendar,graph-->
+            <field name="view_id" ref="view_tree_libro_iva"/>
+        </record>
+        <!--CREAMOS LA ACCION QUE LLAMARA LA VISTA TREE PARA QUE SE CARGUE AUTOMATICAMENTE-->
+
+        <record id="action_libro_iva_tree_compra" model="ir.actions.act_window">
+            <field name="name">Libro Compras</field>
+            <field name="res_model">libro.iva</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('type', '=', 'compras')]</field>
+            <field name="context">{'type': 'compras', 'default_type': 'compras'}</field>
+            <field name="view_mode">tree,form</field><!-- pendiente ,calendar,graph-->
+            <field name="view_id" ref="view_tree_libro_iva"/>
+        </record>
+        <menuitem id="iva" name="Reportes de IVA" groups="account.group_account_user"
+                  parent="account.menu_finance_reports"/>
+        <menuitem id="reg_libro_iva_menu_fcf" name="Libro Consumidor Final" parent="iva"
+                  action="action_libro_iva_tree_fcf"/>
+        <menuitem id="reg_libro_iva_menu_ccf" name="Libro Credito Fiscal" parent="iva"
+                  action="action_libro_iva_tree_ccf"/>
+        <menuitem id="reg_libro_iva_menu_compra" name="Libro Compras" parent="iva"
+                  action="action_libro_iva_tree_compra"/>
+    </data>
+</odoo>

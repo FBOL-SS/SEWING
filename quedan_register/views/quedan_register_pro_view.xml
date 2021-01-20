@@ -1,0 +1,55 @@
+<?xml version = "1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Inherited employee form view -->
+    <record id="view_quedan_register_pro_form" model="ir.ui.view">
+        <field name="name">view.quedan.register.pro.form</field>
+        <field name="model">quedan.register.pro</field>
+        <field name="arch" type="xml">
+            <form string="Registro de Quedan">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="seq_quedan" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group name="datos">
+                        <group name="datos_left" string="Datos">
+                            <field name="fecha_1"/>
+                            <field name="empresa_1"/>
+                             <field name="no_factura_1"/>
+                            <field name="entrega_1"/>
+                            <field name="recibe_1"/>
+                        </group>
+                    </group>
+                </sheet>
+               </form>
+        </field>
+    </record>
+
+        <record id="view_quedan_register_pro_tree" model="ir.ui.view">
+        <field name="name">view.quedan.register.pro.tree</field>
+        <field name="model">quedan.register.pro</field>
+        <field name="arch" type="xml">
+            <tree string="Registro de Quedan">
+                <field name="seq_quedan"/>
+                <field name="fecha_1"/>
+                <field name="empresa_1"/>
+                <field name="no_factura_1"/>
+                <field name="entrega_1"/>
+                <field name="recibe_1"/>
+            </tree>
+        </field>
+    </record>
+
+        <record id="quedan_reports_pro_action" model="ir.actions.act_window">
+        <field name="name">Registro de Quedan</field>
+        <field name="res_model">quedan.register.pro</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+	<!--  Menu Items-->
+    <menuitem name="Resgistro de Quedan" id="quedan_reports_pro_menu" parent="account.menu_finance_payables" action="quedan_reports_pro_action" sequence="1"/>
+</odoo>
+

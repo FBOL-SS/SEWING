@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_remesa_sv_manager,access_remesa_sv_manager,remesas_sv.model_remesa_sv,remesas_sv.group_manager_remesa,1,1,1,1
+access_remesa_sv_user,access_remesa_sv_user,remesas_sv.model_remesa_sv,remesas_sv.group_user_remesa,1,0,0,0

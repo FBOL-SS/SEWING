@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="iva_header">
+            <div class="header">
+                <div class="row">
+                    <div class="col-xs-2" style="margin-left: 20px;">
+
+                    </div>
+
+                    <div class="col-xs-5">
+                        <div class="row" style="text-align: left; margin-right: 435px;">
+                            <h3 t-field="doc.company_id.name"/>
+                        </div>
+
+                        <div class="row" style="text-align: left; margin-right: 435px;">
+                            <nobr>Numero de Registro:</nobr><span t-field="doc.company_id.nrc"/>
+                        </div>
+
+                        <div class="row" style="text-align: left; margin-right: 435px;">
+                            <nobr>N.I.T:</nobr><span t-field="doc.company_id.nit"/>
+                        </div>
+
+
+                        <div class="row" style="text-align: left; margin-right: 435px;">
+                            <nobr>Mes:</nobr><span t-field="doc.mes"/>
+                        </div>
+
+                        <div class="row" style="text-align: left; margin-right: 435px;">
+                            <nobr>Año:</nobr><span t-esc="doc.fecha.year"/>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-5 d-flex align-items-center">
+                        <div class="row" style="margin-right: 435px;">
+                            <t t-if="doc.type == 'ccf'"><nobr> LIBRO DE VENTAS A CONTRIBUYENTES </nobr></t>
+                            <t t-if="doc.type == 'fcf'"><nobr> LIBRO DE VENTAS A CONSUMIDORES FINALES </nobr></t>
+                            <t t-if="doc.type == 'compras'"><nobr> LIBRO DE COMPRAS </nobr></t>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row zero_min_height">
+                    <div class="col-xs-12">
+                        <div style="border-bottom: 1px solid black;"/>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template id="iva_footer">
+            <div class="footer">
+                <div class="row zero_min_height">
+                    <div class="col-xs-12">
+                        <div style="border-bottom: 1px solid black;"/>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="text-right page_number">
+                        <div class="text-muted">
+                            Page:
+                            <span class="page"/>
+                            of
+                            <span class="topage"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        <template id="iva_layout">
+            <!-- Multicompany -->
+            <t t-if="not o and doc">
+                <t t-set="o" t-value="doc"/>
+            </t>
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id"/>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+
+            <t t-call="reporte_impuestos_sv.iva_header"/>
+
+            <t t-raw="0"/>
+
+            <t t-call="reporte_impuestos_sv.iva_footer"/>
+        </template>
+    </data>
+</odoo>

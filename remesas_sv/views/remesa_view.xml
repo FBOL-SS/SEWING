@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    
+    <!-- VISTA LISTA DE LAS REMESAS REALIZADAS -->
+    <record id="view_tree_remesa_sv" model="ir.ui.view">
+      <field name="name">remesa.sv.tree</field>
+      <field name="model">remesa.sv</field>
+      <field name="arch" type="xml">
+        <tree string="Remesas Realizadas" decoration-bf="state=='open'" decoration-muted="state=='cancel'">
+          <field name="name"/>
+          <field name="fecha_remesa"/>
+          <field name="banco_id"/>
+          <field name="cuenta_id"/>
+          <field name="origen_id"/>
+          <field name="state"/>
+          <field name="total"  sum="Total Remesado"/>
+        </tree>
+      </field>
+    </record>
+    
+    <!-- VISTA FORMULARIO PARA REGISTRO DE LAS REMESAS -->
+    <record id="view_remesa_sv_form" model="ir.ui.view">
+      <field name="name">remesa.sv.form</field>
+      <field name="model">remesa.sv</field>
+      <field name="arch" type="xml">
+        <form string="Remesas">
+          <header>
+            <button name="validar" states="draft" type="object" string="Validar" class="oe_highlight" />
+            <button name="borrador" states="cancel" type="object" string="Borrador" class="oe_highlight" />
+            <button name="contabilizar_remesa" states="open" type="object" string="Contabilizar" class="oe_highlight" />
+            <button name="cancel" states="draft,open,entered" type="object" string="Cancelar" class="oe_highligft"/>
+            <field name="state" widget="statusbar" nolabel="1" statusbar_visible="draft,open,entered" statusbar_colors='{"draft":"blue","entered":"gray"}'/>
+          </header>
+          <sheet string="Remesas">
+            <group>
+              <h1>
+                <field name="name"/>
+              </h1>
+              <group col="2">
+                <field name="fecha_remesa" />
+              </group>
+              <group col="2">
+                <field name="origen_id" widget="many2one_list"/>
+                <field name="banco_id" widget="many2one_list" />
+                <field name="cuenta_id" widget="many2one_list"/>
+              </group>
+              <group col="2">
+                <field name="total" widget="monetary" options="{'currency_field': 'currency_id'}" />
+                <field name="referencia" />
+              </group>
+              <group col="2">
+                <field name="responsable_id" widget="selection"/>
+              </group>
+              <group col="2">
+                <field name="usuario_id" readonly="[('state', '=', 'draft')]"/>
+              </group>
+            </group>
+            <notebook>
+              <page string="Asientos Contables" attrs="{'invisible': [('state', '!=', 'entered')]}">
+                <field name="list_asientos" mode="tree,kanban" nolabel="1" readonly="1">
+                  <tree>
+                    <field name="asiento_contable_id" string="Asiento Contable"/>
+                  </tree>
+                  <form>
+                    <field name="asiento_contable_id" string="Asiento Contable"/>
+                  </form>
+                  <kanban class="o_kanban_mobile">
+                    <field name="asiento_contable_id" string="Asiento Contable"/>
+                    <templates>
+                      <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                          <div class="row">
+                            <div class="col-xs-12">
+                              <strong><span><t t-esc="record.asiento_contable_id.value"/></span></strong>
+                            </div>
+                          </div>
+                        </div>
+                      </t>
+                    </templates>
+                  </kanban>
+                </field>
+              </page>
+            </notebook>
+          </sheet>
+          <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+            <field name="message_ids" widget="mail_thread"/>
+          </div>
+        </form>
+      </field>
+    </record>
+    
+    <!--CREAMOS LA ACCION QUE LLAMARA LA VISTA TREE PARA QUE SE CARGUE AUTOMATICAMENTE-->
+    <record id="action_remesa_sv_tree" model="ir.actions.act_window">
+      <field name="name">Remesas</field>
+      <field name="res_model">remesa.sv</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field><!-- pendiente ,calendar,graph-->
+      <field name="view_id" ref="view_tree_remesa_sv"/>
+      <!--   <field name="context">{'type':'out_invoice'}</field>
+      <field name="search_view_id" ref="view_account_invoice_filter"/>-->
+    </record>
+    <record id="view_graph_remesa_sv" model="ir.ui.view">
+      <field name="name">view_graph_remesa_sv</field>
+      <field name="model">remesa.sv</field>
+      <field name="arch" type="xml">
+        <graph type="pivot">
+          <field name="fecha_remesa" type="measure" />
+          <field name="total" type="col"/>
+        </graph>
+      </field>
+    </record>
+    <record id="action_remesa_sv_graph" model="ir.actions.act_window">
+      <field name="name">Remesas</field>
+      <field name="res_model">remesa.sv</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form,graph</field><!-- pendiente ,calendar,graph-->
+      <field name="view_id" ref="view_graph_remesa_sv"/>
+    </record>
+    <!-- top level menu: no parent 
+    <menuitem id="main_openacademy_menu" name="Open Academy"/>
+    A first level in the left side menu is needed
+    before using action= attribute 
+    <menuitem id="openacademy_menu" name="Open Academy"
+    parent="menu_finance_bank_and_cash"/>
+    the following menuitem should appear *after*
+    its parent openacademy_menu and *after* its
+    action course_list_action -->
+    <!-- <menuitem id="remesas" name="remesas sv"></menuitem>-->
+    <menuitem id="reg_remesa_menu" name="Remesas" parent="account.menu_finance_entries" action="action_remesa_sv_tree"/>
+    <menuitem id="gra_remesa_menu" name="Graficos Remesas" parent="account.menu_finance_entries" action="action_remesa_sv_graph"/>
+    <!-- Full id location:
+    action="openacademy.course_list_action"
+    It is not required when it is the same module -->
+  </data>
+</odoo>
