@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <report
+            string="Delivery Slip with Barcodes"
+            id="action_report_delivery_barcode"
+            model="stock.picking"
+            report_type="qweb-pdf"
+            name="delivery_slip_with_barcodes.report_deliveryslip_barcode"
+            file="delivery_slip_with_barcodes.report_deliveryslip_barcode"
+            print_report_name="'Delivery Slip with Barcodes - %s - %s' % (object.partner_id.name or '', object.name)"
+        />
+        
+    </data>
+</odoo>
