@@ -33,7 +33,7 @@
                             <tr>
                                 <th t-if="o.origin"><strong>Order (Origin)</strong></th>
                                 <th name="td_sched_date_h">
-                                    <strong>Date</strong>
+                                    <strong>Fecha</strong>
                                 </th>
                             </tr>
                         </thead>
@@ -56,10 +56,10 @@
                     <table class="table table-condensed mt48" t-if="not o.move_line_ids">
                         <thead>
                             <tr>
-                                <th><strong>Product</strong></th>
+                                <th><strong>Producto</strong></th>
                                 <th><strong>Barcode</strong></th>
-                                <th><strong>Unit Price</strong></th>
-                                <th><strong>Ordered Quantity</strong></th>
+                                <th><strong>Precio Unitario</strong></th>
+                                <th><strong>Cantidad</strong></th>
                             </tr>
                         </thead>
                         <tbody>
