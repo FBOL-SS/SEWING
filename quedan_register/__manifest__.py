@@ -3,7 +3,7 @@
 
 {
     'name': 'Resgistro de Quedan',
-    'author': 'Bulldogsoft',
+    'author': 'SewingSolution',
     'summary': 'Modulo para llevan un registro de los quedans realizados',
     'category': 'Extra Tools',
     'depends': ['base', 'account'],
