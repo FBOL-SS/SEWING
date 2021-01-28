@@ -145,7 +145,7 @@
                                 <td class="text-center">
                                     <span t-field="move_line.package_id"/>
                                     <span t-if="move_line.package_id">:</span>
-                                    <span t-field="move_line.ordered_qty"/>
+                                    <span t-field="move_line.product_uom_qty"/>
                                     <span t-field="move_line.product_uom_id"/>
                                 </td>
                                 <td class="text-right" t-if="move_line.state == 'done'">
