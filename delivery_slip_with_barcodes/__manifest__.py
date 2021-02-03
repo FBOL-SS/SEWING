@@ -2,13 +2,13 @@
 # Copyright (C) 2017-present  Technaureus Info Solutions(<http://www.technaureus.com/>).
 
 {
-    'name': 'Delivery Slip with Barcodes',
+    'name': 'Boleta de entrega',
     'version': '1.0',
     'category': 'Warehouse',
     'sequence': 1,
-    'author':'Technaureus Info Solutions Pvt. Ltd.',
+    'author':'SewingSolution',
     'summary': 'Delivery Slip with Barcodes',
-    'website': 'http://www.technaureus.com/',
+    'website': '',
     'description': """
 This addon will help to show barcode in delivery slip...""",
     'depends': ['sale_stock'],
