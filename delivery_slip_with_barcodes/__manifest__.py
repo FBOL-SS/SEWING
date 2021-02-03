@@ -7,7 +7,8 @@
     'category': 'Warehouse',
     'sequence': 1,
     'author':'SewingSolution',
-    'summary': 'Delivery Slip with Barcodes',
+    'summary': 'Boleta de entrega',
+#    'summary': 'Delivery Slip with Barcodes',
     'website': '',
     'description': """
 This addon will help to show barcode in delivery slip...""",
