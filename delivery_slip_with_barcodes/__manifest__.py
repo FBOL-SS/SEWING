@@ -2,16 +2,16 @@
 # Copyright (C) 2017-present  ).
 
 {
-    'name': 'Boleta de entrega',
+    'name': 'Boleta de Entrega',
     'version': '1.0',
     'category': 'Warehouse',
     'sequence': 1,
     'author':'SewingSolution',
-    'summary': 'Boleta de entrega',
-#    'summary': 'Delivery Slip with Barcodes',
+    'summary': 'Boleta de Entrega',
+#    'summary': 'Boleta de Entrega con Codigo de Barra',
     'website': '',
     'description': """
-This addon will help to show barcode in delivery slip...""",
+Este complemento ayudará a mostrar el código de barras en el Ordenes de Entrega...""",
     'depends': ['sale_stock'],
     'data': [
         'report/stock_report_views.xml',
