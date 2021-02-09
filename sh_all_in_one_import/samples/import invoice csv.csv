@@ -1,0 +1,8 @@
+Number,Customer/Vendor,Invoice/Bill Date,Product,Description,Ordered Qty,Unit of Measure,Unit Price,Taxes
+sh1,Azure Interior,2018-03-02,Acoustic Bloc Screens,abs desc,10,Unit(s),5000,"IGST 1%,IGST 2%,IGST 18%"
+sh1,,,Cabinet with Doors,,20,Unit(s),,
+sh1,,,Cable Management Box,,30,,,
+sh2,The Jackson Group,2018-03-03,Conference Chair,,1,,,IGST 12%
+sh2,,,Individual Workplace,,2,,,
+sh2,,,Drawer,,3,,,
+sh3,test customer 1,2018-03-04,test,,10,cm,,
