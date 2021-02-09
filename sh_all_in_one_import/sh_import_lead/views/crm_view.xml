@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	
+
+  <menuitem 
+  	name="Import Leads"
+  	action="sh_import_lead_action" 
+  	id="sh_import_lead_menu" 
+  	parent="crm.crm_menu_leads"
+  	groups="sh_all_in_one_import.sh_import_lead_group" 
+  
+  />
+
+
+</odoo>
+  
+ 
