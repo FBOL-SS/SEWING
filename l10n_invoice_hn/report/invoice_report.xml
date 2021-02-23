@@ -6,8 +6,8 @@
             model="account.invoice"
             string="Factura Honduras"
             report_type="qweb-pdf"
-            name="l10n_invoice_hn.report_invoice_main_hn"
-            file="l10n_invoice_hn.report_invoice_main_hn"
+            name="l10n_invoice_hn.report_invoice_main"
+            file="l10n_invoice_hn.report_invoice_main"
         />
 
         <record id="paperformat_invoice_hn" model="report.paperformat">
