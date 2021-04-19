@@ -11,13 +11,6 @@ class ProductTemplate(models.Model):
     codigo_alternativo_1 = fields.Many2one('product.template', 'Product')
     #codigo_alternativo_1 = fields.Char(string="Código alternativo 1:", required=False, )
     codigo_alternativo_2 = fields.Many2one('product.template', 'Product')
-    
-class ProductTemplate(models.Model):
-    _inherit = "product.template"
-
-    modelo_maquinaria = fields.Many2one('product.template', 'Product')
-    #modelo_maquinaria = fields.Char(string="modelo_maquinaria:", required=False, )
-    
 
     fabricante = fields.Selection(string="Fabricante de máquina:", selection=[
                                                    ('dka', 'DURKOP Adler'),
