@@ -13,11 +13,6 @@
                 <field name="codigo_alternativo_2" string="Código alternativo 2:"/>
                 <field name="fabricante"/>
                 <field name="marca_sw"/>
-                
-              <field name="categ_id" position="after">
-                <field name="modelo_maquinaria" string="Modelo de Maquinaria:"/>
-                <field name="codigo_alternativo_1"/>
-                <field name="codigo_alternativo_1"/>
             </field>
         </field>
     </record>
