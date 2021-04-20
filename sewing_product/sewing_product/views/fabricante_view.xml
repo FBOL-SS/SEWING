@@ -12,7 +12,7 @@
                 <field name="codigo_alternativo_1" string="Código alternativo 1:"/>
                 <field name="codigo_alternativo_2" string="Código alternativo 2:"/>
                 <field name="fabricante"/>
-                <field name="modelo_sw"/>
+                <field name="marca_sw"/>
             </field>
         </field>
     </record>
