@@ -16,39 +16,35 @@ class ProductTemplate(models.Model):
                                                    ('dka', 'DURKOP Adler'),
                                                    ('BRTTO', 'Baratto'),
                                                    ('BRDAN', 'Barudan'),
-                                                   ('bro', 'BROTHER'),
+                                                   ('bro', 'Brother'),
                                                    ('consew', 'CONSEW'),
                                                    ('durkopp', 'DURKOPP'),
-                                                   ('e-sew', 'E-SEW'),
-                                                   ('eastman', 'EASTMAN'),
-                                                   ('fuchaobei', 'FUCHAOBEI'),
-                                                   ('hashima', 'HASHIMA'),
+                                                   ('eastman', 'Eastman'),
+                                                   ('hashima', 'Hashima'),
                                                    ('jack', 'JACK')
                                                    ('janome', 'Janome'),
                                                    ('juki', 'JUKI'),
-                                                   ('kansai', 'KANSAI SPECIAL'),
-                                                   ('kingtex', 'KINGTEX'),
+                                                   ('kansai', 'KANSAI'),
+                                                   ('kingtex', 'Kingtex'),
                                                    ('lijia', 'LIJIA')
                                                    ('meistergram', 'Meistergram'),
                                                    ('merrow', 'MERROW'),
                                                    ('mitsubishi', 'Mitsubishi'),
-                                                   ('pegasus', 'PEGASUS'),
+                                                   ('pegasus', 'Pegasus'),
                                                    ('pfaff', 'PFAFF'),
                                                    ('reece', 'REECE'),
                                                    ('rimold', 'Rimold'),
                                                    ('seiko', 'SEIKO'),
-                                                   ('shing ling', 'SHING LING'),
                                                    ('singer', 'SINGER'),
-                                                   ('sister', 'SISTER'),
                                                    ('siruba', 'SIRUBA'),
                                                    ('sunstar', 'SUNSTAR'),
-                                                   ('tabony', 'TABONY'),
-                                                   ('tajima', 'TAJIMA'),
+                                                   ('taiko', 'TAIKO'),
+                                                   ('tajma', 'TAJMA'),
                                                    ('toyota', 'TOYOTA'),
-                                                   ('union special', 'UNION SPECIAL '),
+                                                   ('union special', 'Union Special'),
+                                                   ('united shoe machine', 'United Shoe Machine'),
                                                    ('vibemac', 'Vibemac'),
                                                    ('yamato', 'YAMATO'),
-                                                   ('zoje', 'ZOJE'),
                                                    ], required=False, )
 
     marca_sw = fields.Selection(string="Marca:", selection=[('3m', '3M'),
@@ -202,10 +198,3 @@ class ProductTemplate(models.Model):
                                                             ('z-laser', 'Z-Laser'),
                                                             ('zero max', 'Zero Max'),
                                                             ], required=False, )
-
-
-
-
-
-
-
