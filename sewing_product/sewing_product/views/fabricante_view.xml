@@ -10,13 +10,11 @@
 
             <field name="categ_id" position="after">
                 <field name="codigo_alternativo_1" string="Código alternativo 1:"/>
-                <field name="codigo_alternativo_2" string="Código alternativo 2:"/>
+                <field name="modelo_sw" string="Modelo:"/>
                 <field name="fabricante"/>
-                <field name="marca_sw"/>
+                <field name="modelo_sw"/>
             </field>
         </field>
     </record>
 
 </odoo>
-
-
