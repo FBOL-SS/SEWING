@@ -144,7 +144,7 @@ class ProductTemplate(models.Model):
                                                     ('VG2700-156M'),
                                                     ('W1600'),
                                                     ('W600'),
-                                                    ('KM-250A-7S),
+                                                    ('KM-250A-7S'),
                                                     ('D7100-903'),
                                                     ('DB2-B797-415S'),
                                                     ('S-7200A-433'),
