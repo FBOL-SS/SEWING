@@ -121,7 +121,7 @@ class ProductTemplate(models.Model):
                                                    ('zoje', 'ZOJE'),
                                                    ], required=False, )
 
-    modelo_sw = fields.Selection(string="Modelo:", selection=[  
+    marca_sw = fields.Selection(string="Marca:", selection=[  
                                                     ('JK-SHIRLEYIIE'),
                                                     ('9817H-D4'),
                                                     ('ZJ9703AR-D4J/01'),
