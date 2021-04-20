@@ -11,6 +11,7 @@ class ProductTemplate(models.Model):
     entrega_nota = fields.Selection(string="ENTREGA/NOTA", selection=[
                                                             ('IN', 'INMEDIATO'),
                                                             ('10', '10 DIAS'),
+                                                            ('PO', 'POR CONFIRMAR'),
                                                             ('3-4', '3-4 SEMANAS'),
                                                             ], required=False, )
 
