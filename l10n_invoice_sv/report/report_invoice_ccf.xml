@@ -15,7 +15,6 @@
               .tabla-trh td {
               font-size: 22px;
               padding: 12px 4px;
-              border: 0px solid red;
               }
             </style>
 
@@ -173,7 +172,6 @@
             #tabla-3 td
             {
             font-size: 23px;
-            border: 0px solid red;
             }
             #tabla-3 th{
             padding: 18px 2px;
@@ -239,7 +237,6 @@
             #tabla-t td
             {
             font-size: 23px;
-            border: 0px solid red;
             }
           </style>
 
