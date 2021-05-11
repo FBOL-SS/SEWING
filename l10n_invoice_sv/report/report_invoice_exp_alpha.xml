@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <template id="report_invoice_exp">
+      <t t-call="web.html_container">      
+        <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})"/>
+        <div class="header">
+          
+        </div>
+        <div t-att-data-oe-model="o._name" t-att-data-oe-id="o.id" t-att-data-oe-lang="o and o.env.context.get('lang')" class="page article">
+<style type="text/css">
+            .tabla-t {
+              width: 100%;
+            }
+            .tabla-tm td {
+            font-size: 25px;
+            padding: 5px 1px;
+			border: 1px solid black;
+            }
+            .tabla-tm tr {
+            padding-top: 15px ;
+            }
+            </style>
+
+          <div class="row">
+          <table class="tabla-t tabla-tm" >
+            <tr>
+          </table>
+          </div>
+
+          <div class="row">
+          <table class="tabla-t tabla-tm" >
+            <!-- -->
+               <td width="5.64%">CLIENTE: </td>
+              <td width="56.92%">   <!--row 1-->
+                <span t-field="o.partner_id"/>
+              </td>
+              <td width="5.64%">FECHA:</td>
+              <td width="31.28%">
+                <span t-field="o.date_invoice"/>
+              </td>
+            </tr>
+           
+            
+            
+            <!-- -->
+            <tr>
+              <td width="8.20%">DIRECCION: </td>
+              <td width="54.35%" rowspan="2">   <!--row 2-->
+                <span t-if="o.partner_id.street">
+                  <span t-field="o.partner_id.street"/>
+                </span></td>
+              <td width="10.25%">REGISTRO:</td>
+              <td width="26.66%">
+                <span t-field="o.partner_id.nrc"/>
+              </td>
+            </tr>
+            <tr>
+              <td width="8.20%%"> </td>
+              <td width="4.61%">GIRO:</td>            
+              <!--row 3-->
+              <td width="32.30%" style="font-size: 16.5px" class="text-left">
+                <span t-field="o.partner_id.giro"/>
+              </td>
+            </tr>
+                          <td width="8.20%%"> </td>                          <td width="8.20%%"> </td>
+
+                          <td width="8.20%">NIT_No:. </td>
+              <td width="26.15%">
+                <span t-field="o.partner_id.nit"/>
+              </td>
+
+          </table>
+          </div>
+
+
+          <br/>
+
+           <!--termina primera tabla-->
+
+          <style>
+            #tabla-2
+            {
+
+            width: 100%;
+            }
+
+            #tabla-2 td
+            {
+            font-size: 23px;
+            }
+
+          </style>
+
+         
+           <!--termina segunda tabla-->
+
+          <style>
+            #tabla-3
+            {
+            width: 100%;
+            }
+            #tabla-3 td
+            {
+            font-size: 23px;
+            }
+            #tabla-3 th{
+            padding: 18px 2px;
+			border: 1px solid black;
+            }
+
+          </style>
+
+          <div class="row">
+            <table id="tabla-3" class="text-center">
+              <thead>
+                <tr>
+                  <th style="width:9.74%; height: 45.5px;">CANTIDAD_REFERENCIA</th>
+                  <th style="width:15.89%">PRODUCTO</th>
+                  <th style="width:45.12">DESCRIPCION</th>
+                  <th style="width:9.74%%">PRECIO_UNITARIO</th>
+                  <th style="width:9.74%%"> </th>
+                  <th style="width:9.74%">VENTAS GRAVADAS</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr t-foreach="o.invoice_line_ids" t-as="l">
+                  <td class="text-left">
+                      <span t-field="l.quantity"/>
+                      <span t-field="l.uom_id"  groups="product.group_uom"/>
+                  </td>
+                  <td class="text-center">
+                  <span style="padding-left 5px" t-field="l.product_id.default_code"/>
+                  </td>
+                  <td class="text-justify">
+                    <span style="padding-left 5px" t-field="l.name"/>
+                  </td>
+                  <td>
+                    <span t-esc="l.price_unit"
+                           t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                  </td>
+                  <td t-foreach="o.fiscal_position_id" t-as="f" >
+                    <span t-if="f.name == 'Ventas Exentas'" t-esc="l.price_subtotal"
+                          t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                  </td>
+                  <td class="text-left" t-foreach="o.fiscal_position_id" t-as="f">
+                    <span t-if="f.name != 'Ventas Exentas'" t-esc="l.price_subtotal"
+                          t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!--termina tabla de productos-->
+
+        <div class="footer">
+          <style>
+            #total{
+              border-collapse: collapse;
+              width: 100%;
+              height: 165px;
+            }
+            #total td{
+              padding: 1px 1px;
+              vertical-align: middle;
+              font-size: 23px;
+            }
+            span{
+              font-weight:white;
+			  border: 1px solid black;
+            }
+          </style>
+          <div class="row">
+            <table id="total">
+              <tr>
+                <td style="width: 67.5%;" class="text-center">
+                  <span t-field="o.amount_text"/>
+                </td>
+                <td style="width: 15%;"> </td>
+                <td style="width: 16.75%; height: 45px;" class="text-center">
+                  <span t-field="o.amount_untaxed"/>
+                </td>
+              </tr>
+
+              <tr>
+                <td> </td>
+                <td> </td>
+                <td style="height: 65px;" class="text-right"> </td>
+              </tr>
+
+              <tr>
+                <td> </td>
+                <td> </td>
+                <td style="height: 45px;" class="text-center" >
+                  <span t-field="o.amount_total"/>
+                </td>
+
+              </tr>
+
+              <tr>
+                <td> </td>
+                <td> </td>
+                <td style="height: 55px;" class="text-center">
+                  <span t-foreach="o.fiscal_position_id" t-as="f">
+                    <span t-if="f.name == 'Ventas Exentas'" t-esc="o.amount_total"
+                        t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                </span>
+                </td>
+              </tr>
+
+              <tr>
+                <td> </td>
+                <td> </td>
+                <td style="height: 35px;" class="text-center">
+                  <span t-field="o.amount_total"/>
+                </td>
+              </tr>
+            </table>
+
+          </div>
+</div>
+
+
+        </div>
+      </t>
+    </template>
+  </data>
+</odoo>
