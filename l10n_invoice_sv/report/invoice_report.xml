@@ -115,7 +115,7 @@
         <record id="report_exportacion_alpha" model="ir.actions.report">
             <field name="print_report_name">(object.state in ('open','paid') and (object.journal_id.code) +(object.number or '').replace('/',''))
             </field>
-            <field name="paperformat_id" ref="paperformat_invoice_exportacion"/>
+            <field name="paperformat_id" ref="paperformat_invoice_exportacion_alpha"/>
             <field name="attachment_use" eval="False"/>
         </record>	    
 	    
