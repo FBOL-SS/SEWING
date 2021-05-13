@@ -89,6 +89,36 @@
             <field name="paperformat_id" ref="paperformat_invoice_exportacion"/>
             <field name="attachment_use" eval="False"/>
         </record>
+	    
+<report 
+            id="report_exportacion_alpha"
+            model="account.invoice"
+            string="Factura Exportacion Alpha"
+            report_type="qweb-pdf"
+            name="l10n_invoice_sv.report_invoice_main_exp_alpha"
+            file="l10n_invoice_sv.report_invoice_main_exp_alpha"
+        />
+        <record id="paperformat_invoice_exportacion_alpha" model="report.paperformat">
+	      <field name="name">Factura de Exportacion Alpha</field>
+	      <field name="default" eval="True"/>
+	      <field name="format">Letter</field>
+	      <field name="orientation">Portrait</field>
+	      <field name="margin_top">49</field>
+	      <field name="margin_bottom">87</field>
+	      <field name="margin_left">14</field>
+	      <field name="margin_right">8</field>
+	      <field name="header_line" eval="False"/>
+	      <field name="header_spacing">10</field>
+	      <field name="dpi">160</field>
+		</record>
+        
+        <record id="report_exportacion_alpha" model="ir.actions.report">
+            <field name="print_report_name">(object.state in ('open','paid') and (object.journal_id.code) +(object.number or '').replace('/',''))
+            </field>
+            <field name="paperformat_id" ref="paperformat_invoice_exportacion"/>
+            <field name="attachment_use" eval="False"/>
+        </record>	    
+	    
         <report 
             id="report_ndc"
             model="account.invoice"
