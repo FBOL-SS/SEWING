@@ -1,0 +1,20 @@
+<?xml version = "1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Inherited employee form view -->
+    <record id="view_extra_fields_form" model="ir.ui.view">
+        <field name="name">view.extra.fields.form</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.invoice_form"/>
+        <field name="arch" type="xml">
+
+            <field name="partner_bank_id" position="after">
+                <field name="orden_no"/>
+                <field name="customer_no"/>
+                 <field name="envio"/>
+            </field>
+
+        </field>
+    </record>
+
+</odoo>

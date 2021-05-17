@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_invoice_exp_ins">
+            <t t-call="web.html_container">
+                <t t-set="o" t-value="o.with_context({'lang':o.partner_id.lang})" />
+                <div class="header">
+
+                </div>
+                <div t-att-data-oe-model="o._name" t-att-data-oe-id="o.id"
+                    t-att-data-oe-lang="o and o.env.context.get('lang')" class="page article">
+
+                    <style>
+                        td {
+                            line-height: 45px;
+                        }
+
+                        .company-info {
+                            width: 100%;
+                        }
+
+                        .company-info td {
+                            font-size: 25px;
+                        }
+
+                        .txt.center {
+                            text-align: center;
+                        }
+                    </style>
+
+                    <table class="company-info">
+                        <tr>
+                            <td style="width: 56.29%;"></td>
+                            <!-- Fecha: -->
+                            <td style="width: 7.28%;"></td>
+                            <td style="width: 37.08%;"><span t-field="o.date_invoice" /></td>
+                        </tr>
+                    </table>
+
+                    <table class="company-info">
+                        <tr>
+                            <!-- Cliente: -->
+                            <td style="width: 6.62%;"></td>
+                            <td style="width: 93.37%;"><span t-field="o.partner_id" /></td>
+                        </tr>
+                    </table>
+
+                    <table class="company-info">
+                        <tr>
+                            <!-- Direccion: -->
+                            <td style="width: 8.60%; height:48px"></td>
+                            <td style="width: 91.39%;"><span t-field="o.partner_id.street" /></td>
+                        </tr>
+                    </table>
+
+                    <table class="company-info">
+                        <tr>
+                            <!-- Departamento: -->
+                            <td style="width: 11.25%; height:50px"></td>
+                            <td style="width: 52.31%;"><span t-field="o.partner_id.state_id" /></td>
+                            <!-- N.C.R.: -->
+                            <td style="width: 6.62%;"></td>
+                            <td style="width: 29.31%;"><span t-field="o.partner_id.nrc" /></td>
+                        </tr>
+                    </table>
+
+                    <table class="company-info">
+                        <tr>
+                            <!-- NIT: -->
+                            <td style="width: 3.31%;height:55px"></td>
+                            <td style="width: 25.82%;"><span t-field="o.partner_id.nit" /></td>
+                            <!-- Giro: -->
+                            <td style="width: 5.29%;"></td>
+                            <td style="width: 66.22%;"><span t-field="o.partner_id.giro" /></td>
+                        </tr>
+                    </table>
+
+                    <table class="company-info">
+                        <tr>
+                            <!-- Condiciones de la operacion: -->
+                            <td style="width: 21.85%;"></td>
+                            <td style="width: 28.47%;"><span t-field="o.payment_term_id" /></td>
+                            <!-- Venta a Cuenta de: -->
+                            <td style="width: 14.56%;"></td>
+                            <td style="width: 35.76%;"><span /></td>
+                        </tr>
+                    </table>
+
+                    <table class="company-info">
+                        <tr>
+                            <!-- Exportacion a cuenta de: -->
+                            <td style="width: 19.20%; color: white;"> . </td>
+                            <td style="width: 80.79%;"><span /></td>
+                        </tr>
+                    </table>
+                    <br />
+                    <br />
+                    
+                    
+                     <style>
+                        .bill-details {
+                            width: 100%;
+                        }
+
+                        .bill-details td {
+                            font-size: 20px;
+                        }
+
+                        .txt.center {
+                            text-align: center;
+                        }
+                    </style>
+
+
+                    <table class="bill-details">
+                        <tr style="height: 35px;">
+                            <td style="width: 7.00%;"></td> <!-- Cantidad -->
+                            <td style="width: 10.87%;"></td> <!-- Codigo -->
+                            <td style="width: 51.64%;"></td> <!-- Descripcion -->
+                            <td style="width: 10.60%;"></td> <!-- Precio Unitario -->
+                            <td style="width: 9.27%;"></td> <!-- Ventas Exentas -->
+                            <td style="width: 11.92%;"></td> <!-- Ventas Afectas -->
+                        </tr>
+
+                        <tr t-foreach="o.invoice_line_ids" t-as="l">
+                            <td class="txt-center">
+                                <span t-field="l.quantity" />
+                                <span t-field="l.uom_id" groups="product.group_uom" />
+                            </td>
+                            <td class="txt-center"><span t-field="l.product_id.default_code" /></td>
+                            <td><span t-field="l.name" /></td>
+                            <td class="txt-center">
+                                <span t-field="l.price_unit"
+                                       t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                            </td>
+
+                            <td class="txt-center" t-foreach="o.fiscal_position_id" t-as="f">
+                                <span t-if="f.name == 'Ventas Exentas'" t-esc="l.price_subtotal"
+                                    t-options='{"widget": "monetary", "display_currency": o.currency_id}' />
+                            </td>
+
+                            <td class="txt-center" t-foreach="o.fiscal_position_id" t-as="f">
+                                <span t-if="f.name != 'Ventas No Sujetas' and f.name != 'Ventas Exentas'"
+                                    t-esc="l.price_subtotal"
+                                    t-options='{"widget": "monetary", "display_currency": o.currency_id}' />
+                            </td>
+                        </tr>
+                    </table>
+
+
+
+                    <div class="footer">
+                        <style>
+                        td {
+                            line-height: 45px;
+                        }
+                        .table-totals {
+                            width: 100%;
+                        }
+                        .table-totals td {
+                            font-size: 25px;
+                            padding-bottom: 5px;
+                        }
+                        </style>
+
+                        <table class="table-totals">
+                            <tr>
+                                <td rowspan="2" style="width: 69.86%; padding-left: 35px">
+                                    <span t-field="o.amount_text"/>
+                                </td> <!-- SON -->
+                                <td style="width: 8.00%;"></td> <!-- SUMAS -->
+                                <td style="width: 9.27%;"></td>
+                                <td style="width: 13.52%;" class="text-left">
+                                    <span t-foreach="o.fiscal_position_id" t-as="f">
+                                        <span t-if="f.name != 'Ventas No Sujetas' and  f.name != 'Ventas Exentas'"
+                                              t-esc="o.amount_untaxed"
+                                              t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="color: white;">. </td>
+                                <td></td> <!-- % I.V.A. -->
+                                <td class="text-left">
+                                    <span t-foreach="o.tax_line_ids" t-as="l">
+                                        <span t-if="l.name == 'IVA 13% Ventas'">
+                                            <span t-esc="o.amount_untaxed * 0.13"
+                                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                            </span>
+                                        <span t-else="l.name != 'IVA 13% Ventas'">
+                                            <span/>
+                                        </span>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="color: white;">. </td>
+                                <td style="color: white;">. </td>
+                                <td class="text-left">
+                                    <span t-foreach="o.fiscal_position_id" t-as="f">
+                                        <span t-if="f.name != 'Ventas No Sujetas' and  f.name != 'Ventas Exentas'"
+                                              t-esc="o.amount_total"
+                                              t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                               <td style="color: white;"> . </td>
+                                <td class="text-left">
+                                    <span t-foreach="o.fiscal_position_id" t-as="f">
+                                        <span t-if="f.name == 'Ventas Exentas'" t-esc="o.amount_total"
+                                              t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td ></td>
+                                <td ></td>
+                                <td ></td>
+                                <td class="text-left">
+                                    <span t-field="o.amount_total" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_refund_l10n_invoice_sv">
+            <field name="name">view_refund_l10n_invoice_sv</field>
+            <field name="model">account.invoice.refund</field>
+            <field name="inherit_id" ref="account.view_account_invoice_refund"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='date']" position="after">
+                    <field name="sale" invisible='1'/>
+                    <field name="journal_id" attrs="{'invisible':[('sale','!=',True)]}" widget="selection"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
