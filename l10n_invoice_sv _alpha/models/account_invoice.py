@@ -37,14 +37,14 @@ class AccountInvoice(models.Model):
 
         if report == 'ccf':
             return self.env.ref(
-                'l10n_invoice_sv.report_credito_fiscal').report_action(self)
+                'l10n_invoice_alpha.report_credito_fiscal').report_action(self)
         if report == 'fcf':
             return self.env.ref('account.account_invoices').report_action(self)
         if report == 'exp':
             return self.env.ref(
-                'l10n_invoice_sv.report_exportacion').report_action(self)
+                'l10n_invoice_alpha.report_exportacion').report_action(self)
         if report == 'ndc':
-            return self.env.ref('l10n_invoice_sv.report_ndc').report_action(
+            return self.env.ref('l10n_invoice_alpha.report_ndc').report_action(
                 self)
         if report == 'anu':
             return self.env.ref(
@@ -52,7 +52,7 @@ class AccountInvoice(models.Model):
                 report_action(self)
         if report == 'axp':
             return self.env.ref(
-                'l10n_invoice_sv.report_anul_export').report_action(self)
+                'l10n_invoice_alpha.report_anul_export').report_action(self)
 
         return self.env.ref('account.account_invoices').report_action(self)
 
@@ -124,6 +124,6 @@ class AccountInvoice(models.Model):
 
     @api.multi
     def print_report(self):
-        return self.env.ref('l10n_invoice_sv.report_invoice_digital').report_action(self)
+        return self.env.ref('l10n_invoice_alpha.report_invoice_digital').report_action(self)
 
 

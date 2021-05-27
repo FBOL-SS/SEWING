@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Facturacion de El Salvador",
-    'summary': """Facturacion de El Salvador""",
+    'name': "Facturacion de El Salvador Alpha",
+    'summary': """Facturacion de El Salvador Alpha""",
     'description': """
-       Facturacion de El Salvador.
+       Facturacion de El Salvador Alpha.
        Permite Imprimir los tres tipos de facturas utilizados en El Salvador
         - Consumidor Final
         - Credito Fiscal
